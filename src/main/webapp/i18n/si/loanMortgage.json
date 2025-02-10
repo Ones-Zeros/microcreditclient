@@ -1,0 +1,29 @@
+{
+  "microcreditclientApp": {
+    "loanMortgage": {
+      "home": {
+        "title": "Loan Mortgages",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "නව Loan Mortgage එකක් සාදන්න",
+        "createOrEditLabel": "Loan Mortgage සාදන්න හෝ සංස්කරණය කරන්න",
+        "search": "Loan Mortgage සඳහා සොයන්න",
+        "notFound": "Loan Mortgages හමු නොවීය"
+      },
+      "created": "{{ param }} හඳුනාගැනීමෙන් නව Loan Mortgage සාදනු ලැබේ",
+      "updated": "{{ param }} හඳුනාගැනීමෙන් Loan Mortgage යාවත්කාලීන වේ",
+      "deleted": "{{ param }} හඳුනාගැනීමෙන් Loan Mortgage මකා දමනු ලැබේ",
+      "delete": {
+        "question": "Loan Mortgage {{ id }} මකා දැමීමට ඔබට විශ්වාසද?"
+      },
+      "detail": {
+        "title": "Loan Mortgage"
+      },
+      "id": "Id",
+      "loanId": "Loan Id",
+      "type": "Type",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "customerLoan": "Customer Loan"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "microcreditclientApp": {
+    "LoanStatus": {
+      "null": "",
+      "DRAFT": "DRAFT",
+      "ACTIVE": "ACTIVE",
+      "BADDEBT": "BADDEBT"
+    }
+  }
+}

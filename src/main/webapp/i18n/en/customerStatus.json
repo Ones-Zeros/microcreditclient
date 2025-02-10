@@ -1,0 +1,12 @@
+{
+  "microcreditclientApp": {
+    "CustomerStatus": {
+      "null": "",
+      "ACTIVE": "ACTIVE",
+      "INACTIVE": "INACTIVE",
+      "BANNED": "BANNED",
+      "BADDEBT": "BADDEBT",
+      "DELETED": "DELETED"
+    }
+  }
+}

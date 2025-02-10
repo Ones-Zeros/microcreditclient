@@ -1,0 +1,33 @@
+{
+  "microcreditclientApp": {
+    "bankBranch": {
+      "home": {
+        "title": "Bank Branches",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "නව Bank Branch එකක් සාදන්න",
+        "createOrEditLabel": "Bank Branch සාදන්න හෝ සංස්කරණය කරන්න",
+        "search": "Bank Branch සඳහා සොයන්න",
+        "notFound": "Bank Branches හමු නොවීය"
+      },
+      "created": "{{ param }} හඳුනාගැනීමෙන් නව Bank Branch සාදනු ලැබේ",
+      "updated": "{{ param }} හඳුනාගැනීමෙන් Bank Branch යාවත්කාලීන වේ",
+      "deleted": "{{ param }} හඳුනාගැනීමෙන් Bank Branch මකා දමනු ලැබේ",
+      "delete": {
+        "question": "Bank Branch {{ id }} මකා දැමීමට ඔබට විශ්වාසද?"
+      },
+      "detail": {
+        "title": "Bank Branch"
+      },
+      "id": "ID",
+      "branchName": "Branch Name",
+      "branchId": "Branch Id",
+      "branchLocation": "Branch Location",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "customerBankInfo": "Customer Bank Info",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "bank": "Bank"
+    }
+  }
+}

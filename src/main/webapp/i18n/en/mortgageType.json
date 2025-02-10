@@ -1,0 +1,9 @@
+{
+  "microcreditclientApp": {
+    "MortgageType": {
+      "null": "",
+      "VEHICLE": "VEHICLE",
+      "PROPERTY": "PROPERTY"
+    }
+  }
+}

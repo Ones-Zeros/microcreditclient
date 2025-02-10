@@ -1,0 +1,32 @@
+{
+  "microcreditclientApp": {
+    "vehicleModel": {
+      "home": {
+        "title": "Vehicle Models",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "නව Vehicle Model එකක් සාදන්න",
+        "createOrEditLabel": "Vehicle Model සාදන්න හෝ සංස්කරණය කරන්න",
+        "search": "Vehicle Model සඳහා සොයන්න",
+        "notFound": "Vehicle Models හමු නොවීය"
+      },
+      "created": "{{ param }} හඳුනාගැනීමෙන් නව Vehicle Model සාදනු ලැබේ",
+      "updated": "{{ param }} හඳුනාගැනීමෙන් Vehicle Model යාවත්කාලීන වේ",
+      "deleted": "{{ param }} හඳුනාගැනීමෙන් Vehicle Model මකා දමනු ලැබේ",
+      "delete": {
+        "question": "Vehicle Model {{ id }} මකා දැමීමට ඔබට විශ්වාසද?"
+      },
+      "detail": {
+        "title": "Vehicle Model"
+      },
+      "id": "Id",
+      "model": "Model",
+      "description": "Description",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "vehicleValuationReport": "Vehicle Valuation Report",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "vehicleBrand": "Vehicle Brand"
+    }
+  }
+}

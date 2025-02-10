@@ -1,0 +1,29 @@
+{
+  "microcreditclientApp": {
+    "paymentPlanItem": {
+      "home": {
+        "title": "Payment Plan Items",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Payment Plan Item",
+        "createOrEditLabel": "Create or edit a Payment Plan Item",
+        "search": "Search for Payment Plan Item",
+        "notFound": "No Payment Plan Items found"
+      },
+      "created": "A new Payment Plan Item is created with identifier {{ param }}",
+      "updated": "A Payment Plan Item is updated with identifier {{ param }}",
+      "deleted": "A Payment Plan Item is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Payment Plan Item {{ id }}?"
+      },
+      "detail": {
+        "title": "Payment Plan Item"
+      },
+      "id": "Id",
+      "amountPaid": "Amount Paid",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "user": "User",
+      "paymentPlan": "Payment Plan"
+    }
+  }
+}

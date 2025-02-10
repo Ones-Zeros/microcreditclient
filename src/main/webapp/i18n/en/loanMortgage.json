@@ -1,0 +1,29 @@
+{
+  "microcreditclientApp": {
+    "loanMortgage": {
+      "home": {
+        "title": "Loan Mortgages",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Loan Mortgage",
+        "createOrEditLabel": "Create or edit a Loan Mortgage",
+        "search": "Search for Loan Mortgage",
+        "notFound": "No Loan Mortgages found"
+      },
+      "created": "A new Loan Mortgage is created with identifier {{ param }}",
+      "updated": "A Loan Mortgage is updated with identifier {{ param }}",
+      "deleted": "A Loan Mortgage is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Loan Mortgage {{ id }}?"
+      },
+      "detail": {
+        "title": "Loan Mortgage"
+      },
+      "id": "Id",
+      "loanId": "Loan Id",
+      "type": "Type",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "customerLoan": "Customer Loan"
+    }
+  }
+}

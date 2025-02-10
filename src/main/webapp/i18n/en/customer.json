@@ -1,0 +1,42 @@
+{
+  "microcreditclientApp": {
+    "customer": {
+      "home": {
+        "title": "Customers",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Customer",
+        "createOrEditLabel": "Create or edit a Customer",
+        "search": "Search for Customer",
+        "notFound": "No Customers found"
+      },
+      "created": "A new Customer is created with identifier {{ param }}",
+      "updated": "A Customer is updated with identifier {{ param }}",
+      "deleted": "A Customer is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Customer {{ id }}?"
+      },
+      "detail": {
+        "title": "Customer"
+      },
+      "id": "Id",
+      "custId": "Cust Id",
+      "nic": "Nic",
+      "custName": "Cust Name",
+      "address1": "Address 1",
+      "address2": "Address 2",
+      "city": "City",
+      "phone1": "Phone 1",
+      "phone2": "Phone 2",
+      "email": "Email",
+      "creditLimit": "Credit Limit",
+      "photo": "Photo",
+      "status": "Status",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "customerLoan": "Customer Loan",
+      "customerBankInfo": "Customer Bank Info",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By"
+    }
+  }
+}

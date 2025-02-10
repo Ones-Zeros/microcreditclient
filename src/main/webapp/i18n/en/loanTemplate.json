@@ -1,0 +1,35 @@
+{
+  "microcreditclientApp": {
+    "loanTemplate": {
+      "home": {
+        "title": "Loan Templates",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Loan Template",
+        "createOrEditLabel": "Create or edit a Loan Template",
+        "search": "Search for Loan Template",
+        "notFound": "No Loan Templates found"
+      },
+      "created": "A new Loan Template is created with identifier {{ param }}",
+      "updated": "A Loan Template is updated with identifier {{ param }}",
+      "deleted": "A Loan Template is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Loan Template {{ id }}?"
+      },
+      "detail": {
+        "title": "Loan Template"
+      },
+      "id": "ID",
+      "templateId": "Template Id",
+      "templateName": "Template Name",
+      "amount": "Amount",
+      "paymentType": "Payment Type",
+      "interest": "Interest",
+      "intPercentage": "Int Percentage",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "customerLoan": "Customer Loan",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By"
+    }
+  }
+}

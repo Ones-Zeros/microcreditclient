@@ -1,0 +1,30 @@
+{
+  "microcreditclientApp": {
+    "bank": {
+      "home": {
+        "title": "Banks",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "නව Bank එකක් සාදන්න",
+        "createOrEditLabel": "Bank සාදන්න හෝ සංස්කරණය කරන්න",
+        "search": "Bank සඳහා සොයන්න",
+        "notFound": "Banks හමු නොවීය"
+      },
+      "created": "{{ param }} හඳුනාගැනීමෙන් නව Bank සාදනු ලැබේ",
+      "updated": "{{ param }} හඳුනාගැනීමෙන් Bank යාවත්කාලීන වේ",
+      "deleted": "{{ param }} හඳුනාගැනීමෙන් Bank මකා දමනු ලැබේ",
+      "delete": {
+        "question": "Bank {{ id }} මකා දැමීමට ඔබට විශ්වාසද?"
+      },
+      "detail": {
+        "title": "Bank"
+      },
+      "id": "ID",
+      "bankName": "Bank Name",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "bankBranch": "Bank Branch",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By"
+    }
+  }
+}

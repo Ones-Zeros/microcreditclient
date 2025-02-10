@@ -1,0 +1,33 @@
+{
+  "microcreditclientApp": {
+    "collectorCollectionRoute": {
+      "home": {
+        "title": "Collector Collection Routes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Collector Collection Route",
+        "createOrEditLabel": "Create or edit a Collector Collection Route",
+        "search": "Search for Collector Collection Route",
+        "notFound": "No Collector Collection Routes found"
+      },
+      "created": "A new Collector Collection Route is created with identifier {{ param }}",
+      "updated": "A Collector Collection Route is updated with identifier {{ param }}",
+      "deleted": "A Collector Collection Route is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Collector Collection Route {{ id }}?"
+      },
+      "detail": {
+        "title": "Collector Collection Route"
+      },
+      "id": "Id",
+      "routeId": "Route Id",
+      "collectorId": "Collector Id",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "user": "User",
+      "collectorRoute": "Collector Route",
+      "weeklyCollection": "Weekly Collection"
+    }
+  }
+}

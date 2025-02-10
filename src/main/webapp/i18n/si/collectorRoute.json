@@ -1,0 +1,31 @@
+{
+  "microcreditclientApp": {
+    "collectorRoute": {
+      "home": {
+        "title": "Collector Routes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "නව Collector Route එකක් සාදන්න",
+        "createOrEditLabel": "Collector Route සාදන්න හෝ සංස්කරණය කරන්න",
+        "search": "Collector Route සඳහා සොයන්න",
+        "notFound": "Collector Routes හමු නොවීය"
+      },
+      "created": "{{ param }} හඳුනාගැනීමෙන් නව Collector Route සාදනු ලැබේ",
+      "updated": "{{ param }} හඳුනාගැනීමෙන් Collector Route යාවත්කාලීන වේ",
+      "deleted": "{{ param }} හඳුනාගැනීමෙන් Collector Route මකා දමනු ලැබේ",
+      "delete": {
+        "question": "Collector Route {{ id }} මකා දැමීමට ඔබට විශ්වාසද?"
+      },
+      "detail": {
+        "title": "Collector Route"
+      },
+      "id": "Id",
+      "routeId": "Route Id",
+      "description": "Description",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "collectorCollectionRoute": "Collector Collection Route",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By"
+    }
+  }
+}

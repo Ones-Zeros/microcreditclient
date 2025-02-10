@@ -1,0 +1,31 @@
+{
+  "microcreditclientApp": {
+    "weeklyCollection": {
+      "home": {
+        "title": "Weekly Collections",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "නව Weekly Collection එකක් සාදන්න",
+        "createOrEditLabel": "Weekly Collection සාදන්න හෝ සංස්කරණය කරන්න",
+        "search": "Weekly Collection සඳහා සොයන්න",
+        "notFound": "Weekly Collections හමු නොවීය"
+      },
+      "created": "{{ param }} හඳුනාගැනීමෙන් නව Weekly Collection සාදනු ලැබේ",
+      "updated": "{{ param }} හඳුනාගැනීමෙන් Weekly Collection යාවත්කාලීන වේ",
+      "deleted": "{{ param }} හඳුනාගැනීමෙන් Weekly Collection මකා දමනු ලැබේ",
+      "delete": {
+        "question": "Weekly Collection {{ id }} මකා දැමීමට ඔබට විශ්වාසද?"
+      },
+      "detail": {
+        "title": "Weekly Collection"
+      },
+      "id": "Id",
+      "description": "Description",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "collectorCollectionRoute": "Collector Collection Route",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "customerLoan": "Customer Loan"
+    }
+  }
+}

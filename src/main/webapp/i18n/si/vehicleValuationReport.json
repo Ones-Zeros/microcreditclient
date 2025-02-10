@@ -1,0 +1,38 @@
+{
+  "microcreditclientApp": {
+    "vehicleValuationReport": {
+      "home": {
+        "title": "Vehicle Valuation Reports",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "නව Vehicle Valuation Report එකක් සාදන්න",
+        "createOrEditLabel": "Vehicle Valuation Report සාදන්න හෝ සංස්කරණය කරන්න",
+        "search": "Vehicle Valuation Report සඳහා සොයන්න",
+        "notFound": "Vehicle Valuation Reports හමු නොවීය"
+      },
+      "created": "{{ param }} හඳුනාගැනීමෙන් නව Vehicle Valuation Report සාදනු ලැබේ",
+      "updated": "{{ param }} හඳුනාගැනීමෙන් Vehicle Valuation Report යාවත්කාලීන වේ",
+      "deleted": "{{ param }} හඳුනාගැනීමෙන් Vehicle Valuation Report මකා දමනු ලැබේ",
+      "delete": {
+        "question": "Vehicle Valuation Report {{ id }} මකා දැමීමට ඔබට විශ්වාසද?"
+      },
+      "detail": {
+        "title": "Vehicle Valuation Report"
+      },
+      "id": "Id",
+      "vehicleNo": "Vehicle No",
+      "chassisNumber": "Chassis Number",
+      "engineId": "Engine Id",
+      "engineCapacity": "Engine Capacity",
+      "imgUrl1": "Img Url 1",
+      "imgUrl2": "Img Url 2",
+      "imgUrl3": "Img Url 3",
+      "imgUrl4": "Img Url 4",
+      "imgUrl5": "Img Url 5",
+      "imgUrl6": "Img Url 6",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "vehicleModel": "Vehicle Model",
+      "customerLoan": "Customer Loan"
+    }
+  }
+}

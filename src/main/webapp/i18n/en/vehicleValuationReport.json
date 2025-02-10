@@ -1,0 +1,38 @@
+{
+  "microcreditclientApp": {
+    "vehicleValuationReport": {
+      "home": {
+        "title": "Vehicle Valuation Reports",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Vehicle Valuation Report",
+        "createOrEditLabel": "Create or edit a Vehicle Valuation Report",
+        "search": "Search for Vehicle Valuation Report",
+        "notFound": "No Vehicle Valuation Reports found"
+      },
+      "created": "A new Vehicle Valuation Report is created with identifier {{ param }}",
+      "updated": "A Vehicle Valuation Report is updated with identifier {{ param }}",
+      "deleted": "A Vehicle Valuation Report is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Vehicle Valuation Report {{ id }}?"
+      },
+      "detail": {
+        "title": "Vehicle Valuation Report"
+      },
+      "id": "Id",
+      "vehicleNo": "Vehicle No",
+      "chassisNumber": "Chassis Number",
+      "engineId": "Engine Id",
+      "engineCapacity": "Engine Capacity",
+      "imgUrl1": "Img Url 1",
+      "imgUrl2": "Img Url 2",
+      "imgUrl3": "Img Url 3",
+      "imgUrl4": "Img Url 4",
+      "imgUrl5": "Img Url 5",
+      "imgUrl6": "Img Url 6",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "vehicleModel": "Vehicle Model",
+      "customerLoan": "Customer Loan"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "microcreditclientApp": {
+    "customerLoan": {
+      "home": {
+        "title": "Customer Loans",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "නව Customer Loan එකක් සාදන්න",
+        "createOrEditLabel": "Customer Loan සාදන්න හෝ සංස්කරණය කරන්න",
+        "search": "Customer Loan සඳහා සොයන්න",
+        "notFound": "Customer Loans හමු නොවීය"
+      },
+      "created": "{{ param }} හඳුනාගැනීමෙන් නව Customer Loan සාදනු ලැබේ",
+      "updated": "{{ param }} හඳුනාගැනීමෙන් Customer Loan යාවත්කාලීන වේ",
+      "deleted": "{{ param }} හඳුනාගැනීමෙන් Customer Loan මකා දමනු ලැබේ",
+      "delete": {
+        "question": "Customer Loan {{ id }} මකා දැමීමට ඔබට විශ්වාසද?"
+      },
+      "detail": {
+        "title": "Customer Loan"
+      },
+      "id": "ID",
+      "loanId": "Loan Id",
+      "amount": "Amount",
+      "loanPaymentType": "Loan Payment Type",
+      "loanPeriod": "Loan Period",
+      "createdDate": "Created Date",
+      "lastModifiedDate": "Last Modified Date",
+      "paymentStartDate": "Payment Start Date",
+      "paymentEndDate": "Payment End Date",
+      "status": "Status",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "valuationReport": "Valuation Report",
+      "installmentPlan": "Installment Plan",
+      "guarantor": "Guarantor",
+      "loanMortgage": "Loan Mortgage",
+      "paymentPlan": "Payment Plan",
+      "weeklyCollection": "Weekly Collection",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "customer": "Customer",
+      "loanTemplate": "Loan Template"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "microcreditclientApp": {
+    "customerBankInfo": {
+      "home": {
+        "title": "Customer Bank Infos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Customer Bank Info",
+        "createOrEditLabel": "Create or edit a Customer Bank Info",
+        "search": "Search for Customer Bank Info",
+        "notFound": "No Customer Bank Infos found"
+      },
+      "created": "A new Customer Bank Info is created with identifier {{ param }}",
+      "updated": "A Customer Bank Info is updated with identifier {{ param }}",
+      "deleted": "A Customer Bank Info is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Customer Bank Info {{ id }}?"
+      },
+      "detail": {
+        "title": "Customer Bank Info"
+      },
+      "id": "ID",
+      "accountNumber": "Account Number",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "bankBranch": "Bank Branch",
+      "customer": "Customer"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "microcreditclientApp": {
+    "weeklyCollection": {
+      "home": {
+        "title": "Weekly Collections",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Weekly Collection",
+        "createOrEditLabel": "Create or edit a Weekly Collection",
+        "search": "Search for Weekly Collection",
+        "notFound": "No Weekly Collections found"
+      },
+      "created": "A new Weekly Collection is created with identifier {{ param }}",
+      "updated": "A Weekly Collection is updated with identifier {{ param }}",
+      "deleted": "A Weekly Collection is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Weekly Collection {{ id }}?"
+      },
+      "detail": {
+        "title": "Weekly Collection"
+      },
+      "id": "Id",
+      "description": "Description",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "collectorCollectionRoute": "Collector Collection Route",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By",
+      "customerLoan": "Customer Loan"
+    }
+  }
+}

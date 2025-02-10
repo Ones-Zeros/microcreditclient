@@ -1,0 +1,31 @@
+{
+  "microcreditclientApp": {
+    "installmentPlanItem": {
+      "home": {
+        "title": "Installment Plan Items",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Installment Plan Item",
+        "createOrEditLabel": "Create or edit a Installment Plan Item",
+        "search": "Search for Installment Plan Item",
+        "notFound": "No Installment Plan Items found"
+      },
+      "created": "A new Installment Plan Item is created with identifier {{ param }}",
+      "updated": "A Installment Plan Item is updated with identifier {{ param }}",
+      "deleted": "A Installment Plan Item is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Installment Plan Item {{ id }}?"
+      },
+      "detail": {
+        "title": "Installment Plan Item"
+      },
+      "id": "ID",
+      "toBePaid": "To Be Paid",
+      "amount": "Amount",
+      "status": "Status",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "weeklyCollectionItem": "Weekly Collection Item",
+      "installmentPlan": "Installment Plan"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "microcreditclientApp": {
+    "guarantor": {
+      "home": {
+        "title": "Guarantors",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "නව Guarantor එකක් සාදන්න",
+        "createOrEditLabel": "Guarantor සාදන්න හෝ සංස්කරණය කරන්න",
+        "search": "Guarantor සඳහා සොයන්න",
+        "notFound": "Guarantors හමු නොවීය"
+      },
+      "created": "{{ param }} හඳුනාගැනීමෙන් නව Guarantor සාදනු ලැබේ",
+      "updated": "{{ param }} හඳුනාගැනීමෙන් Guarantor යාවත්කාලීන වේ",
+      "deleted": "{{ param }} හඳුනාගැනීමෙන් Guarantor මකා දමනු ලැබේ",
+      "delete": {
+        "question": "Guarantor {{ id }} මකා දැමීමට ඔබට විශ්වාසද?"
+      },
+      "detail": {
+        "title": "Guarantor"
+      },
+      "id": "Id",
+      "nic": "Nic",
+      "guarantorName": "Guarantor Name",
+      "phone1": "Phone 1",
+      "address1": "Address 1",
+      "address2": "Address 2",
+      "city": "City",
+      "picture": "Picture",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "customerLoan": "Customer Loan"
+    }
+  }
+}

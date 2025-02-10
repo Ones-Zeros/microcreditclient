@@ -1,0 +1,31 @@
+{
+  "microcreditclientApp": {
+    "vehicleBrand": {
+      "home": {
+        "title": "Vehicle Brands",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Vehicle Brand",
+        "createOrEditLabel": "Create or edit a Vehicle Brand",
+        "search": "Search for Vehicle Brand",
+        "notFound": "No Vehicle Brands found"
+      },
+      "created": "A new Vehicle Brand is created with identifier {{ param }}",
+      "updated": "A Vehicle Brand is updated with identifier {{ param }}",
+      "deleted": "A Vehicle Brand is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Vehicle Brand {{ id }}?"
+      },
+      "detail": {
+        "title": "Vehicle Brand"
+      },
+      "id": "Id",
+      "brand": "Brand",
+      "description": "Description",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "vehicleModel": "Vehicle Model",
+      "createdBy": "Created By",
+      "modifiedBy": "Modified By"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "microcreditclientApp": {
+    "PaymentType": {
+      "null": "",
+      "DAILY": "DAILY",
+      "WEEKLY": "WEEKLY",
+      "MONTHLY": "MONTHLY"
+    }
+  }
+}

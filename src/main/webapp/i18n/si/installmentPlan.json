@@ -1,0 +1,29 @@
+{
+  "microcreditclientApp": {
+    "installmentPlan": {
+      "home": {
+        "title": "Installment Plans",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "නව Installment Plan එකක් සාදන්න",
+        "createOrEditLabel": "Installment Plan සාදන්න හෝ සංස්කරණය කරන්න",
+        "search": "Installment Plan සඳහා සොයන්න",
+        "notFound": "Installment Plans හමු නොවීය"
+      },
+      "created": "{{ param }} හඳුනාගැනීමෙන් නව Installment Plan සාදනු ලැබේ",
+      "updated": "{{ param }} හඳුනාගැනීමෙන් Installment Plan යාවත්කාලීන වේ",
+      "deleted": "{{ param }} හඳුනාගැනීමෙන් Installment Plan මකා දමනු ලැබේ",
+      "delete": {
+        "question": "Installment Plan {{ id }} මකා දැමීමට ඔබට විශ්වාසද?"
+      },
+      "detail": {
+        "title": "Installment Plan"
+      },
+      "id": "Id",
+      "installmentDate": "Installment Date",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "installmentPlanItem": "Installment Plan Item",
+      "customerLoan": "Customer Loan"
+    }
+  }
+}

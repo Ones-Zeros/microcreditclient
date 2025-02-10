@@ -81,7 +81,7 @@ entity LoanTemplate {
 entity CustomerLoan {
     loanId String required,
     amount BigDecimal required,
-    loanPaymentType LoanPaymentType required,
+    loanPaymentType PaymentType required,
     loanPeriod BigDecimal required,
     createdDate LocalDate required,
     lastModifiedDate LocalDate,
@@ -180,7 +180,6 @@ entity VehicleValuationReport {
     imgUrl4 String required,
     imgUrl5 String,
     imgUrl6 String,
-    vehicleModelId String required
     insertTs Instant
     modifiedTs Instant
 }
@@ -208,7 +207,6 @@ entity CustomerBankInfo {
 }
 
 entity InstallmentPlanItem {
-	installmentPlanId Integer,
     toBePaid LocalDate,
     amount BigDecimal,
     status PaymentStatus,

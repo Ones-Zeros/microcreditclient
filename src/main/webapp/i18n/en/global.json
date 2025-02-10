@@ -7,7 +7,26 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
-        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "bank": "Bank",
+        "bankBranch": "Bank Branch",
+        "customer": "Customer",
+        "loanTemplate": "Loan Template",
+        "customerLoan": "Customer Loan",
+        "guarantor": "Guarantor",
+        "installmentPlan": "Installment Plan",
+        "loanMortgage": "Loan Mortgage",
+        "paymentPlan": "Payment Plan",
+        "paymentPlanItem": "Payment Plan Item",
+        "weeklyCollection": "Weekly Collection",
+        "weeklyCollectionItem": "Weekly Collection Item",
+        "collectorRoute": "Collector Route",
+        "collectorCollectionRoute": "Collector Collection Route",
+        "vehicleValuationReport": "Vehicle Valuation Report",
+        "vehicleModel": "Vehicle Model",
+        "vehicleBrand": "Vehicle Brand",
+        "customerBankInfo": "Customer Bank Info",
+        "installmentPlanItem": "Installment Plan Item"
       },
       "account": {
         "main": "Account",

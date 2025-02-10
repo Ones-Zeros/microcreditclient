@@ -1,0 +1,29 @@
+{
+  "microcreditclientApp": {
+    "customerBankInfo": {
+      "home": {
+        "title": "Customer Bank Infos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "නව Customer Bank Info එකක් සාදන්න",
+        "createOrEditLabel": "Customer Bank Info සාදන්න හෝ සංස්කරණය කරන්න",
+        "search": "Customer Bank Info සඳහා සොයන්න",
+        "notFound": "Customer Bank Infos හමු නොවීය"
+      },
+      "created": "{{ param }} හඳුනාගැනීමෙන් නව Customer Bank Info සාදනු ලැබේ",
+      "updated": "{{ param }} හඳුනාගැනීමෙන් Customer Bank Info යාවත්කාලීන වේ",
+      "deleted": "{{ param }} හඳුනාගැනීමෙන් Customer Bank Info මකා දමනු ලැබේ",
+      "delete": {
+        "question": "Customer Bank Info {{ id }} මකා දැමීමට ඔබට විශ්වාසද?"
+      },
+      "detail": {
+        "title": "Customer Bank Info"
+      },
+      "id": "ID",
+      "accountNumber": "Account Number",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "bankBranch": "Bank Branch",
+      "customer": "Customer"
+    }
+  }
+}

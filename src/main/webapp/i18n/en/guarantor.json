@@ -1,0 +1,34 @@
+{
+  "microcreditclientApp": {
+    "guarantor": {
+      "home": {
+        "title": "Guarantors",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Guarantor",
+        "createOrEditLabel": "Create or edit a Guarantor",
+        "search": "Search for Guarantor",
+        "notFound": "No Guarantors found"
+      },
+      "created": "A new Guarantor is created with identifier {{ param }}",
+      "updated": "A Guarantor is updated with identifier {{ param }}",
+      "deleted": "A Guarantor is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Guarantor {{ id }}?"
+      },
+      "detail": {
+        "title": "Guarantor"
+      },
+      "id": "Id",
+      "nic": "Nic",
+      "guarantorName": "Guarantor Name",
+      "phone1": "Phone 1",
+      "address1": "Address 1",
+      "address2": "Address 2",
+      "city": "City",
+      "picture": "Picture",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "customerLoan": "Customer Loan"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "microcreditclientApp": {
+    "paymentPlan": {
+      "home": {
+        "title": "Payment Plans",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "නව Payment Plan එකක් සාදන්න",
+        "createOrEditLabel": "Payment Plan සාදන්න හෝ සංස්කරණය කරන්න",
+        "search": "Payment Plan සඳහා සොයන්න",
+        "notFound": "Payment Plans හමු නොවීය"
+      },
+      "created": "{{ param }} හඳුනාගැනීමෙන් නව Payment Plan සාදනු ලැබේ",
+      "updated": "{{ param }} හඳුනාගැනීමෙන් Payment Plan යාවත්කාලීන වේ",
+      "deleted": "{{ param }} හඳුනාගැනීමෙන් Payment Plan මකා දමනු ලැබේ",
+      "delete": {
+        "question": "Payment Plan {{ id }} මකා දැමීමට ඔබට විශ්වාසද?"
+      },
+      "detail": {
+        "title": "Payment Plan"
+      },
+      "id": "Id",
+      "loanId": "Loan Id",
+      "insertTs": "Insert Ts",
+      "modifiedTs": "Modified Ts",
+      "paymentPlanItem": "Payment Plan Item",
+      "customerLoan": "Customer Loan"
+    }
+  }
+}
