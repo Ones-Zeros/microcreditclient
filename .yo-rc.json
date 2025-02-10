@@ -1,0 +1,21 @@
+{
+  "generator-jhipster": {
+    "baseName": "microcreditclient",
+    "clientFramework": "react",
+    "clientTestFrameworks": [],
+    "clientTheme": "yeti",
+    "clientThemeVariant": "primary",
+    "creationTimestamp": 1739194412480,
+    "devServerPort": 9060,
+    "enableTranslation": true,
+    "entities": [],
+    "jhipsterVersion": "8.7.3",
+    "languages": ["en", "si"],
+    "microfrontend": null,
+    "microfrontends": [],
+    "nativeLanguage": "en",
+    "skipServer": true,
+    "testFrameworks": [],
+    "withAdminUi": true
+  }
+}

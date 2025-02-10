@@ -1,0 +1,294 @@
+enum CustomerStatus {
+    ACTIVE,
+    INACTIVE,
+    BANNED,
+    BADDEBT,
+    DELETED
+}
+
+enum PaymentStatus {
+    NOT_PAID,
+    PAID,
+    PARTIALLY_PAID
+}
+
+enum LoanStatus {
+    DRAFT,
+    ACTIVE,
+    BADDEBT
+}
+
+enum PaymentType {
+    DAILY,
+    WEEKLY,
+    MONTHLY
+}
+
+enum MortgageType {
+    VEHICLE,
+    PROPERTY
+}
+
+enum UserRoles {
+    ADMIN,
+    STAFF,
+    COLLECTOR
+}
+
+entity Bank {
+    bankName String required
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity BankBranch {
+    branchName String required
+    branchId String
+    branchLocation String
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity Customer {
+    id Long required,
+    custId String required,
+    nic String required,
+    custName String required,
+    address1 String required,
+    address2 String,
+    city String,
+    phone1 String required,
+    phone2 String,
+    email String,
+    creditLimit BigDecimal required,
+    photo Blob required,
+    status CustomerStatus required
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity LoanTemplate {
+    templateId String required,
+    templateName String required,
+    amount BigDecimal required,
+    paymentType PaymentType required,
+    interest BigDecimal required,
+    intPercentage BigDecimal required
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity CustomerLoan {
+    loanId String required,
+    amount BigDecimal required,
+    loanPaymentType LoanPaymentType required,
+    loanPeriod BigDecimal required,
+    createdDate LocalDate required,
+    lastModifiedDate LocalDate,
+    paymentStartDate LocalDate,
+    paymentEndDate LocalDate,
+    status LoanStatus required
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity Guarantor {
+    id Long required,
+    nic String required,
+    guarantorName String required,
+    phone1 String required,
+    address1 String required,
+    address2 String,
+    city String,
+    picture Blob required
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity InstallmentPlan {
+    id Long required,
+    installmentDate LocalDate required
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity LoanMortgage {
+    id Long required,
+    loanId Long required,
+    type MortgageType required,
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity PaymentPlan {
+    id Long required,
+    loanId Long required
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity PaymentPlanItem {
+    id Long required,
+    amountPaid BigDecimal required,
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity WeeklyCollection {
+    id Long required,
+    description String,
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity WeeklyCollectionItem {
+    id Long required,
+    amountToBePaid Double required,
+    amountPaid Double required,
+    note String
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity CollectorRoute {
+    id Long required,
+    routeId Long required,
+    description String required
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity CollectorCollectionRoute {
+    id Long required,
+    routeId Long required,
+    collectorId Long required,
+    startDate LocalDate required,
+    endDate LocalDate
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity VehicleValuationReport {
+    id Long required,
+    vehicleNo String required,
+    chassisNumber String required,
+    engineId String required,
+    engineCapacity BigDecimal required,
+    imgUrl1 String required,
+    imgUrl2 String required,
+    imgUrl3 String required,
+    imgUrl4 String required,
+    imgUrl5 String,
+    imgUrl6 String,
+    vehicleModelId String required
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity VehicleModel {
+    id Long required,
+    model String required,
+    description String required,
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity VehicleBrand {
+    id Long required,
+    brand String required,
+    description String required
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity CustomerBankInfo {
+	accountNumber String required
+    insertTs Instant
+    modifiedTs Instant
+}
+
+entity InstallmentPlanItem {
+	installmentPlanId Integer,
+    toBePaid LocalDate,
+    amount BigDecimal,
+    status PaymentStatus,
+    insertTs Instant
+    modifiedTs Instant
+}
+
+relationship OneToMany {
+    Bank to BankBranch
+    Customer to CustomerLoan
+    CustomerLoan to Guarantor
+    LoanTemplate to CustomerLoan
+    CustomerLoan to LoanMortgage
+    CustomerLoan to PaymentPlan
+    PaymentPlan to PaymentPlanItem
+    CollectorRoute to CollectorCollectionRoute
+    VehicleBrand to VehicleModel
+    VehicleModel to VehicleValuationReport
+    BankBranch to CustomerBankInfo
+    WeeklyCollection to CollectorCollectionRoute
+    InstallmentPlan to InstallmentPlanItem
+    CustomerLoan to WeeklyCollection
+    Customer to CustomerBankInfo
+}
+
+relationship ManyToOne {
+    WeeklyCollectionItem{weeklyCollection} to WeeklyCollection
+    PaymentPlanItem to User with builtInEntity
+    CollectorCollectionRoute to User with builtInEntity
+  	
+    WeeklyCollectionItem{createdBy} to User with builtInEntity
+    WeeklyCollectionItem{updatedBy} to User with builtInEntity
+
+	CustomerLoan{createdBy} to User with builtInEntity
+    CustomerLoan{modifiedBy} to User with builtInEntity
+    
+  	Bank{createdBy} to User with builtInEntity
+    Bank{modifiedBy} to User with builtInEntity
+    
+    Customer{createdBy} to User with builtInEntity
+    Customer{modifiedBy} to User with builtInEntity
+    
+    CustomerLoan{createdBy} to User with builtInEntity
+    CustomerLoan{modifiedBy} to User with builtInEntity
+    
+    LoanTemplate{createdBy} to User with builtInEntity
+    LoanTemplate{modifiedBy} to User with builtInEntity
+    
+    CollectorRoute{createdBy} to User with builtInEntity
+    CollectorRoute{modifiedBy} to User with builtInEntity
+    
+    VehicleBrand{createdBy} to User with builtInEntity
+    VehicleBrand{modifiedBy} to User with builtInEntity
+    
+    VehicleModel{createdBy} to User with builtInEntity
+    VehicleModel{modifiedBy} to User with builtInEntity
+    
+    BankBranch{createdBy} to User with builtInEntity
+    BankBranch{modifiedBy} to User with builtInEntity
+    
+    WeeklyCollection{createdBy} to User with builtInEntity
+    WeeklyCollection{modifiedBy} to User with builtInEntity
+}
+
+relationship OneToOne {
+	CustomerLoan {valuationReport} to VehicleValuationReport
+    CustomerLoan {installmentPlan} to InstallmentPlan
+	WeeklyCollectionItem to InstallmentPlanItem
+}
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set pagination options
+paginate * with pagination
+
+filter all
+
+// Set search options
+search * with elasticsearch
