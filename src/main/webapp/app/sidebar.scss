@@ -1,0 +1,31 @@
+.sidebar {
+  background-color: #343a40;
+  color: #fff;
+  height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+  top: 60px; /* Adjust this value based on your header height */
+  left: 0;
+  width: 16.666667%; /* 2 columns out of 12 */
+  padding: 15px;
+}
+
+.sidebar .nav-link {
+  color: #fff;
+  &:hover {
+    color: #adb5bd;
+  }
+}
+
+.sidebar .nav-item {
+  margin-bottom: 10px;
+}
+
+.sidebar .nav .ml-3 {
+  margin-left: 1rem !important;
+}
+
+.main-content {
+  margin-left: 16.666667%; /* 2 columns out of 12 */
+  padding-top: 60px; /* Adjust this value based on your header height */
+}

@@ -1,9 +1,8 @@
 import './home.scss';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Translate } from 'react-jhipster';
-import { Alert, Card, CardBody, CardText, CardTitle, Col, Row, Table } from 'reactstrap';
+import { Card, CardBody, CardText, CardTitle, Col, Row, Table } from 'reactstrap';
 
 import { useAppSelector } from 'app/config/store';
 import { CartesianGrid, Cell, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
@@ -38,13 +37,13 @@ export const Home = () => {
 
   return (
     <Row>
-      <Col md="3" className="pad">
+      {/* <Col md="3" className="pad">
         <span className="hipster rounded" />
-      </Col>
-      <Col md="9">
-        <h1 className="display-4">
+      </Col> */}
+      <Col md="12">
+        <h3 className="display-4">
           <Translate contentKey="home.title">Welcome to LALANA CREDIT PVT LTD</Translate>
-        </h1>
+        </h3>
         <p className="lead">
           <Translate contentKey="home.subtitle">Fueling Ambitions, Empowering Growth</Translate>
         </p>

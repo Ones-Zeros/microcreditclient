@@ -1,9 +1,10 @@
 import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
 import 'app/config/dayjs';
+import './sidebar.scss';
 
 import React, { useEffect } from 'react';
-import { Card } from 'reactstrap';
+import { Card, Col, Row } from 'reactstrap';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
@@ -16,6 +17,7 @@ import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
+import Sidebar from './Sidebar';
 
 const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
 
@@ -49,14 +51,30 @@ export const App = () => {
             isOpenAPIEnabled={isOpenAPIEnabled}
           />
         </ErrorBoundary>
-        <div className="container-fluid view-container" id="app-view-container">
-          <Card className="jh-card">
-            <ErrorBoundary>
-              <AppRoutes />
-            </ErrorBoundary>
-          </Card>
-          <Footer />
-        </div>
+        <Row>
+          {isAuthenticated && (
+            <Col md="2">
+              <Sidebar
+                isAuthenticated={isAuthenticated}
+                isAdmin={isAdmin}
+                currentLocale={currentLocale}
+                ribbonEnv={ribbonEnv}
+                isInProduction={isInProduction}
+                isOpenAPIEnabled={isOpenAPIEnabled}
+              />
+            </Col>
+          )}
+          <Col md={isAuthenticated ? '10' : '12'} className="main-content">
+            <div className="container-fluid view-container" id="app-view-container">
+              <Card className="jh-card">
+                <ErrorBoundary>
+                  <AppRoutes />
+                </ErrorBoundary>
+              </Card>
+              <Footer />
+            </div>
+          </Col>
+        </Row>
       </div>
     </BrowserRouter>
   );

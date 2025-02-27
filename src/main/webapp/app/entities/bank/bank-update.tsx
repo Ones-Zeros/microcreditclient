@@ -88,96 +88,89 @@ export const BankUpdate = () => {
           </h2>
         </Col>
       </Row>
-      <Row className="justify-content-center">
-        <Col md="8">
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew ? (
-                <ValidatedField
-                  name="id"
-                  required
-                  readOnly
-                  id="bank-id"
-                  label={translate('global.field.id')}
-                  validate={{ required: true }}
-                />
-              ) : null}
-              <ValidatedField
-                label={translate('microcreditclientApp.bank.bankName')}
-                id="bank-bankName"
-                name="bankName"
-                data-cy="bankName"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
-              />
-              <ValidatedField
-                label={translate('microcreditclientApp.bank.insertTs')}
-                id="bank-insertTs"
-                name="insertTs"
-                data-cy="insertTs"
-                type="datetime-local"
-                placeholder="YYYY-MM-DD HH:mm"
-              />
-              <ValidatedField
-                label={translate('microcreditclientApp.bank.modifiedTs')}
-                id="bank-modifiedTs"
-                name="modifiedTs"
-                data-cy="modifiedTs"
-                type="datetime-local"
-                placeholder="YYYY-MM-DD HH:mm"
-              />
-              <ValidatedField
-                id="bank-createdBy"
-                name="createdBy"
-                data-cy="createdBy"
-                label={translate('microcreditclientApp.bank.createdBy')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {users
-                  ? users.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="bank-modifiedBy"
-                name="modifiedBy"
-                data-cy="modifiedBy"
-                label={translate('microcreditclientApp.bank.modifiedBy')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {users
-                  ? users.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/bank" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
-                &nbsp;
-                <span className="d-none d-md-inline">
-                  <Translate contentKey="entity.action.back">Back</Translate>
-                </span>
-              </Button>
+      <Row className="justify-content-center mt-3">
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
+            {!isNew ? (
+              <ValidatedField name="id" required readOnly id="bank-id" label={translate('global.field.id')} validate={{ required: true }} />
+            ) : null}
+            <ValidatedField
+              label={translate('microcreditclientApp.bank.bankName')}
+              id="bank-bankName"
+              name="bankName"
+              data-cy="bankName"
+              type="text"
+              validate={{
+                required: { value: true, message: translate('entity.validation.required') },
+              }}
+            />
+            <ValidatedField
+              label={translate('microcreditclientApp.bank.insertTs')}
+              id="bank-insertTs"
+              name="insertTs"
+              data-cy="insertTs"
+              type="datetime-local"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+            <ValidatedField
+              label={translate('microcreditclientApp.bank.modifiedTs')}
+              id="bank-modifiedTs"
+              name="modifiedTs"
+              data-cy="modifiedTs"
+              type="datetime-local"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+            <ValidatedField
+              id="bank-createdBy"
+              row
+              name="createdBy"
+              data-cy="createdBy"
+              label={translate('microcreditclientApp.bank.createdBy')}
+              type="select"
+            >
+              <option value="" key="0" />
+              {users
+                ? users.map(otherEntity => (
+                    <option value={otherEntity.id} key={otherEntity.id}>
+                      {otherEntity.id}
+                    </option>
+                  ))
+                : null}
+            </ValidatedField>
+            <ValidatedField
+              id="bank-modifiedBy"
+              row
+              name="modifiedBy"
+              data-cy="modifiedBy"
+              label={translate('microcreditclientApp.bank.modifiedBy')}
+              type="select"
+            >
+              <option value="" key="0" />
+              {users
+                ? users.map(otherEntity => (
+                    <option value={otherEntity.id} key={otherEntity.id}>
+                      {otherEntity.id}
+                    </option>
+                  ))
+                : null}
+            </ValidatedField>
+            <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/bank" replace color="info">
+              <FontAwesomeIcon icon="arrow-left" />
               &nbsp;
-              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
-                &nbsp;
-                <Translate contentKey="entity.action.save">Save</Translate>
-              </Button>
-            </ValidatedForm>
-          )}
-        </Col>
+              <span className="d-none d-md-inline">
+                <Translate contentKey="entity.action.back">Back</Translate>
+              </span>
+            </Button>
+            &nbsp;
+            <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
+              <FontAwesomeIcon icon="save" />
+              &nbsp;
+              <Translate contentKey="entity.action.save">Save</Translate>
+            </Button>
+          </ValidatedForm>
+        )}
       </Row>
     </div>
   );
