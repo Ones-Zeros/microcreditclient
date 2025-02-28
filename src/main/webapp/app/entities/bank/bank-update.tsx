@@ -81,14 +81,14 @@ export const BankUpdate = () => {
 
   return (
     <div>
-      <Row className="justify-content-center">
+      <Row className="justify-content-left">
         <Col md="8">
           <h2 id="microcreditclientApp.bank.home.createOrEditLabel" data-cy="BankCreateUpdateHeading">
             <Translate contentKey="microcreditclientApp.bank.home.createOrEditLabel">Create or edit a Bank</Translate>
           </h2>
         </Col>
       </Row>
-      <Row className="justify-content-center mt-3">
+      <Row className="justify-content-left flex-left mt-3">
         {loading ? (
           <p>Loading...</p>
         ) : (
@@ -101,6 +101,7 @@ export const BankUpdate = () => {
               id="bank-bankName"
               name="bankName"
               data-cy="bankName"
+              className="col-md-4"
               type="text"
               validate={{
                 required: { value: true, message: translate('entity.validation.required') },
@@ -110,7 +111,9 @@ export const BankUpdate = () => {
               label={translate('microcreditclientApp.bank.insertTs')}
               id="bank-insertTs"
               name="insertTs"
+              className="col-md-4"
               data-cy="insertTs"
+              disabled
               type="datetime-local"
               placeholder="YYYY-MM-DD HH:mm"
             />
@@ -119,6 +122,8 @@ export const BankUpdate = () => {
               id="bank-modifiedTs"
               name="modifiedTs"
               data-cy="modifiedTs"
+              disabled
+              className="col-md-4"
               type="datetime-local"
               placeholder="YYYY-MM-DD HH:mm"
             />
@@ -126,6 +131,7 @@ export const BankUpdate = () => {
               id="bank-createdBy"
               row
               name="createdBy"
+              className="col-md-4"
               data-cy="createdBy"
               label={translate('microcreditclientApp.bank.createdBy')}
               type="select"
@@ -143,6 +149,7 @@ export const BankUpdate = () => {
               id="bank-modifiedBy"
               row
               name="modifiedBy"
+              className="col-md-4"
               data-cy="modifiedBy"
               label={translate('microcreditclientApp.bank.modifiedBy')}
               type="select"

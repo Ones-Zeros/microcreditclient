@@ -20,8 +20,8 @@
       },
       "id": "ID",
       "bankName": "Bank Name",
-      "insertTs": "Insert Ts",
-      "modifiedTs": "Modified Ts",
+      "insertTs": "Created Time Stamp",
+      "modifiedTs": "Modified Time Stamp",
       "bankBranch": "Bank Branch",
       "createdBy": "Created By",
       "modifiedBy": "Modified By"
