@@ -8,6 +8,15 @@ body {
   margin: 0;
 }
 
+.form-control,
+.form-select {
+  border-radius: 10px;
+}
+
+.btn {
+  --bs-btn-border-radius: 0.375rem;
+}
+
 a {
   color: #533f03;
   font-weight: bold;

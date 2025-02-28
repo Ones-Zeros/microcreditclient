@@ -210,8 +210,8 @@ export const Bank = () => {
                   <td>{bank.bankName}</td>
                   <td>{bank.insertTs ? <TextFormat type="date" value={bank.insertTs} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{bank.modifiedTs ? <TextFormat type="date" value={bank.modifiedTs} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{bank.createdBy ? bank.createdBy.id : ''}</td>
-                  <td>{bank.modifiedBy ? bank.modifiedBy.id : ''}</td>
+                  <td>{bank.createdBy ? bank.createdBy.firstName + ' ' + bank.createdBy.lastName : ''}</td>
+                  <td>{bank.modifiedBy ? bank.modifiedBy.firstName + ' ' + bank.modifiedBy.lastName : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/bank/${bank.id}`} color="info" size="sm" data-cy="entityDetailsButton">
