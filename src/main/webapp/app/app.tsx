@@ -1,22 +1,21 @@
+import 'app/config/dayjs';
 import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
-import 'app/config/dayjs';
 import './sidebar.scss';
 
 import React, { useEffect } from 'react';
-import { Card, Col, Row } from 'reactstrap';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { Col, Row } from 'reactstrap';
 
+import { AUTHORITIES } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { getSession } from 'app/shared/reducers/authentication';
-import { getProfile } from 'app/shared/reducers/application-profile';
-import Header from 'app/shared/layout/header/header';
-import Footer from 'app/shared/layout/footer/footer';
+import AppRoutes from 'app/routes';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
-import { AUTHORITIES } from 'app/config/constants';
-import AppRoutes from 'app/routes';
+import Header from 'app/shared/layout/header/header';
+import { getProfile } from 'app/shared/reducers/application-profile';
+import { getSession } from 'app/shared/reducers/authentication';
 import Sidebar from './Sidebar';
 
 const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
@@ -40,7 +39,7 @@ export const App = () => {
   return (
     <BrowserRouter basename={baseHref}>
       <div className="app-container" style={{ paddingTop }}>
-        <ToastContainer position="top-left" className="toastify-container" toastClassName="toastify-toast" />
+        <ToastContainer position="bottom-right" className="toastify-container" toastClassName="toastify-toast" />
         <ErrorBoundary>
           <Header
             isAuthenticated={isAuthenticated}
@@ -65,14 +64,9 @@ export const App = () => {
             </Col>
           )}
           <Col md={isAuthenticated ? '10' : '12'} className="main-content">
-            {/* <div className="container-fluid view-container" id="app-view-container"> */}
-            {/* <Card className="jh-card"> */}
             <ErrorBoundary>
               <AppRoutes />
             </ErrorBoundary>
-            {/* </Card> */}
-            {/* <Footer /> */}
-            {/* </div> */}
           </Col>
         </Row>
       </div>

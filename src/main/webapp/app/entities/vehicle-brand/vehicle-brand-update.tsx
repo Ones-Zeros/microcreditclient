@@ -84,7 +84,7 @@ export const VehicleBrandUpdate = () => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="microcreditclientApp.vehicleBrand.home.createOrEditLabel" data-cy="VehicleBrandCreateUpdateHeading">
-            <Translate contentKey="microcreditclientApp.vehicleBrand.home.createOrEditLabel">Create or edit a VehicleBrand</Translate>
+            <Translate contentKey="microcreditclientApp.vehicleBrand.home.createOrEditLabel">Create or edit a Vehicle Brand</Translate>
           </h2>
         </Col>
       </Row>

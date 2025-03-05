@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Button, Col, Row } from 'reactstrap';
-import { Translate, ValidatedField, ValidatedForm, translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ValidatedField, ValidatedForm, translate } from 'react-jhipster';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Col, Row } from 'reactstrap';
 
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { convertDateTimeToServer } from 'app/shared/util/date-utils';
 
-import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { createEntity, getEntity, partialUpdateEntity, reset, updateEntity } from './bank.reducer';
 import { Box, Typography } from '@mui/material';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import CancelButton from 'app/shared/Components/CancelButton';
 import SaveButton from 'app/shared/Components/SaveButton';
+import { createEntity, getEntity, partialUpdateEntity, reset } from './bank.reducer';
 
 export const BankUpdate = () => {
   const dispatch = useAppDispatch();
@@ -134,68 +133,13 @@ export const BankUpdate = () => {
                   id="bank-bankName"
                   name="bankName"
                   data-cy="bankName"
-                  className="col-md-12"
+                  className="col-md-4"
                   type="text"
                   validate={{
                     required: { value: true, message: translate('entity.validation.required') },
                   }}
                 />
-                {/* <ValidatedField
-                  label={translate('microcreditclientApp.bank.insertTs')}
-                  id="bank-insertTs"
-                  name="insertTs"
-                  className="col-md-4"
-                  data-cy="insertTs"
-                  disabled
-                  type="datetime-local"
-                  placeholder="YYYY-MM-DD HH:mm"
-                />
-                <ValidatedField
-                  label={translate('microcreditclientApp.bank.modifiedTs')}
-                  id="bank-modifiedTs"
-                  name="modifiedTs"
-                  data-cy="modifiedTs"
-                  disabled
-                  className="col-md-4"
-                  type="datetime-local"
-                  placeholder="YYYY-MM-DD HH:mm"
-                />
-                <ValidatedField
-                  id="bank-createdBy"
-                  row
-                  name="createdBy"
-                  className="col-md-4"
-                  data-cy="createdBy"
-                  label={translate('microcreditclientApp.bank.createdBy')}
-                  type="select"
-                >
-                  <option value="" key="0" />
-                  {users
-                    ? users.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
-                    : null}
-                </ValidatedField>
-                <ValidatedField
-                  id="bank-modifiedBy"
-                  row
-                  name="modifiedBy"
-                  className="col-md-4"
-                  data-cy="modifiedBy"
-                  label={translate('microcreditclientApp.bank.modifiedBy')}
-                  type="select"
-                >
-                  <option value="" key="0" />
-                  {users
-                    ? users.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
-                    : null}
-                </ValidatedField> */}
+
                 <Row className="justify-content-end" style={{ marginTop: '30px' }}>
                   <Col md={12} className="d-flex justify-content-end">
                     {mode === 'new' || mode === 'view' ? <CancelButton to="/bank" /> : null}
@@ -203,19 +147,6 @@ export const BankUpdate = () => {
                     {!(mode !== 'edit' && mode !== 'new') || mode === 'new' || mode === 'edit' ? <SaveButton updating={updating} /> : null}
                   </Col>
                 </Row>
-                {/* <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/bank" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />
-                  &nbsp;
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.back">Back</Translate>
-                  </span>
-                </Button>
-                &nbsp;
-                <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />
-                  &nbsp;
-                  <Translate contentKey="entity.action.save">Save</Translate>
-                </Button> */}
               </ValidatedForm>
             )}
           </Row>
