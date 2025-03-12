@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Col, Row } from 'reactstrap';
 import { Translate, ValidatedField, ValidatedForm, isNumber, translate } from 'react-jhipster';
@@ -16,6 +16,8 @@ import { PaymentType } from 'app/shared/model/enumerations/payment-type.model';
 import { LoanStatus } from 'app/shared/model/enumerations/loan-status.model';
 import { createEntity, getEntity, reset, updateEntity } from './customer-loan.reducer';
 import { Box, Typography } from '@mui/material';
+import CancelButton from 'app/shared/Components/CancelButton';
+import SaveButton from 'app/shared/Components/SaveButton';
 
 export const CustomerLoanUpdate = () => {
   const dispatch = useAppDispatch();
@@ -36,7 +38,7 @@ export const CustomerLoanUpdate = () => {
   const updateSuccess = useAppSelector(state => state.customerLoan.updateSuccess);
   const paymentTypeValues = Object.keys(PaymentType);
   const loanStatusValues = Object.keys(LoanStatus);
-
+  const [mode, setMode] = useState('');
   const handleClose = () => {
     navigate(`/customer-loan${location.search}`);
   };
@@ -54,7 +56,15 @@ export const CustomerLoanUpdate = () => {
     dispatch(getCustomers({}));
     dispatch(getLoanTemplates({}));
   }, []);
-
+  useEffect(() => {
+    if (location.pathname.includes('/edit')) {
+      setMode('edit');
+    } else if (location.pathname.includes('/new')) {
+      setMode('new');
+    } else {
+      setMode('view');
+    }
+  }, [location.pathname]);
   useEffect(() => {
     if (updateSuccess) {
       handleClose();
@@ -131,8 +141,8 @@ export const CustomerLoanUpdate = () => {
             marginLeft: '20px', // Adds space between this box and the left edge of the screen
           }}
         >
-          <Row className="justify-content-center mt-3">
-            <Col md="8">
+          <Row className="justify-content-start mt-3">
+            <Col md="12">
               {loading ? (
                 <p>Loading...</p>
               ) : (
@@ -140,7 +150,7 @@ export const CustomerLoanUpdate = () => {
                   {!isNew ? (
                     <ValidatedField
                       row
-                      className="col-md-4"
+                      className="col-md-3"
                       name="id"
                       required
                       readOnly
@@ -151,7 +161,7 @@ export const CustomerLoanUpdate = () => {
                   ) : null}
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.customerLoan.loanId')}
                     id="customer-loan-loanId"
                     name="loanId"
@@ -163,7 +173,7 @@ export const CustomerLoanUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.customerLoan.amount')}
                     id="customer-loan-amount"
                     name="amount"
@@ -176,7 +186,7 @@ export const CustomerLoanUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.customerLoan.loanPaymentType')}
                     id="customer-loan-loanPaymentType"
                     name="loanPaymentType"
@@ -191,7 +201,7 @@ export const CustomerLoanUpdate = () => {
                   </ValidatedField>
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.customerLoan.loanPeriod')}
                     id="customer-loan-loanPeriod"
                     name="loanPeriod"
@@ -204,7 +214,7 @@ export const CustomerLoanUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.customerLoan.createdDate')}
                     id="customer-loan-createdDate"
                     name="createdDate"
@@ -216,7 +226,7 @@ export const CustomerLoanUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.customerLoan.lastModifiedDate')}
                     id="customer-loan-lastModifiedDate"
                     name="lastModifiedDate"
@@ -225,7 +235,7 @@ export const CustomerLoanUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.customerLoan.paymentStartDate')}
                     id="customer-loan-paymentStartDate"
                     name="paymentStartDate"
@@ -234,7 +244,7 @@ export const CustomerLoanUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.customerLoan.paymentEndDate')}
                     id="customer-loan-paymentEndDate"
                     name="paymentEndDate"
@@ -243,7 +253,7 @@ export const CustomerLoanUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.customerLoan.status')}
                     id="customer-loan-status"
                     name="status"
@@ -258,7 +268,7 @@ export const CustomerLoanUpdate = () => {
                   </ValidatedField>
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.customerLoan.insertTs')}
                     id="customer-loan-insertTs"
                     name="insertTs"
@@ -268,7 +278,7 @@ export const CustomerLoanUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.customerLoan.modifiedTs')}
                     id="customer-loan-modifiedTs"
                     name="modifiedTs"
@@ -278,7 +288,7 @@ export const CustomerLoanUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     id="customer-loan-valuationReport"
                     name="valuationReport"
                     data-cy="valuationReport"
@@ -296,7 +306,7 @@ export const CustomerLoanUpdate = () => {
                   </ValidatedField>
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     id="customer-loan-installmentPlan"
                     name="installmentPlan"
                     data-cy="installmentPlan"
@@ -314,7 +324,7 @@ export const CustomerLoanUpdate = () => {
                   </ValidatedField>
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     id="customer-loan-createdBy"
                     name="createdBy"
                     data-cy="createdBy"
@@ -332,7 +342,7 @@ export const CustomerLoanUpdate = () => {
                   </ValidatedField>
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     id="customer-loan-modifiedBy"
                     name="modifiedBy"
                     data-cy="modifiedBy"
@@ -350,7 +360,7 @@ export const CustomerLoanUpdate = () => {
                   </ValidatedField>
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     id="customer-loan-customer"
                     name="customer"
                     data-cy="customer"
@@ -368,7 +378,7 @@ export const CustomerLoanUpdate = () => {
                   </ValidatedField>
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     id="customer-loan-loanTemplate"
                     name="loanTemplate"
                     data-cy="loanTemplate"
@@ -384,39 +394,13 @@ export const CustomerLoanUpdate = () => {
                         ))
                       : null}
                   </ValidatedField>
-                  <Row className="justify-content-end mt-3 d-flex">
-                    <Col md="auto">
-                      {' '}
-                      <Button
-                        tag={Link}
-                        id="cancel-save"
-                        data-cy="entityCreateCancelButton"
-                        to="/customer-loan"
-                        replace
-                        color="info"
-                        className="btn-sm mr-2"
-                      >
-                        <FontAwesomeIcon icon="arrow-left" />
-                        &nbsp;
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.back">Back</Translate>
-                        </span>
-                      </Button>
-                    </Col>
-                    <Col md="auto">
-                      {' '}
-                      <Button
-                        color="primary"
-                        id="save-entity"
-                        data-cy="entityCreateSaveButton"
-                        type="submit"
-                        disabled={updating}
-                        className="btn-sm"
-                      >
-                        <FontAwesomeIcon icon="save" />
-                        &nbsp;
-                        <Translate contentKey="entity.action.save">Save</Translate>
-                      </Button>
+                  <Row className="justify-content-end" style={{ marginTop: '30px' }}>
+                    <Col md={12} className="d-flex justify-content-end">
+                      {mode === 'new' || mode === 'view' ? <CancelButton to="/customer-loan" /> : null}
+                      &nbsp;
+                      {!(mode !== 'edit' && mode !== 'new') || mode === 'new' || mode === 'edit' ? (
+                        <SaveButton updating={updating} />
+                      ) : null}
                     </Col>
                   </Row>
                 </ValidatedForm>

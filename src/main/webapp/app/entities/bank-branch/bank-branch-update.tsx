@@ -104,8 +104,8 @@ export const BankBranchUpdate = () => {
             marginLeft: '20px', // Adds space between this box and the left edge of the screen
           }}
         >
-          <Row className="justify-content-center mt-3">
-            <Col md="8">
+          <Row className="justify-content-start mt-3">
+            <Col md="12">
               {loading ? (
                 <p>Loading...</p>
               ) : (
@@ -113,7 +113,7 @@ export const BankBranchUpdate = () => {
                   {!isNew ? (
                     <ValidatedField
                       row
-                      className="col-md-4"
+                      className="col-md-3"
                       name="id"
                       required
                       readOnly
@@ -124,7 +124,7 @@ export const BankBranchUpdate = () => {
                   ) : null}
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.bankBranch.branchName')}
                     id="bank-branch-branchName"
                     name="branchName"
@@ -136,7 +136,7 @@ export const BankBranchUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.bankBranch.branchId')}
                     id="bank-branch-branchId"
                     name="branchId"
@@ -145,7 +145,7 @@ export const BankBranchUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.bankBranch.branchLocation')}
                     id="bank-branch-branchLocation"
                     name="branchLocation"
@@ -154,7 +154,7 @@ export const BankBranchUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.bankBranch.insertTs')}
                     id="bank-branch-insertTs"
                     name="insertTs"
@@ -164,7 +164,7 @@ export const BankBranchUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.bankBranch.modifiedTs')}
                     id="bank-branch-modifiedTs"
                     name="modifiedTs"
@@ -174,7 +174,7 @@ export const BankBranchUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     id="bank-branch-createdBy"
                     name="createdBy"
                     data-cy="createdBy"
@@ -192,7 +192,7 @@ export const BankBranchUpdate = () => {
                   </ValidatedField>
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     id="bank-branch-modifiedBy"
                     name="modifiedBy"
                     data-cy="modifiedBy"
@@ -210,7 +210,7 @@ export const BankBranchUpdate = () => {
                   </ValidatedField>
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     id="bank-branch-bank"
                     name="bank"
                     data-cy="bank"
