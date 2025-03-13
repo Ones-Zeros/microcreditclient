@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react';
 import { Translate, ValidatedField, ValidatedForm, translate } from 'react-jhipster';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Button, Row } from 'reactstrap';
+import { Button, Col, Row } from 'reactstrap';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { convertDateTimeToServer } from 'app/shared/util/date-utils';
@@ -81,59 +81,24 @@ export const VehicleBrandUpdate = () => {
   return (
     <Box m="20px">
       <div>
-        <FormHeader title="Create or edit a VehicleBrand" />
+        <FormHeader title="Create or edit a Vehicle Brand" />
         <hr />
         <Box
           sx={{
-            backgroundColor: 'white', // White background
+            ackgroundColor: 'white', // White background
             borderRadius: '10px', // Rounded corners
-            padding: '5px', // Padding to create space between border and content
+            padding: '10px', // Padding to create space between border and content
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Optional: Adds a subtle shadow for depth
             marginTop: '10px', // Adds space between this box and the previous element
             marginLeft: '20px', // Adds space between this box and the left edge of the screen
           }}
         >
-          <Box sx={{ alignItems: 'center' }}>
-            <Row className="justify-content-center mt-3">
-              {loading ? (
-                <p>Loading...</p>
-              ) : (
-                <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-                  {/* {!isNew ? (
-                    <ValidatedField
-                      name="id"
-                      required
-                      className="col-md-1"
-                      readOnly
-                      id="vehicle-brand-id"
-                      label={translate('microcreditclientApp.vehicleBrand.id')}
-                      validate={{ required: true }}
-                    />
-                  ) : null} */}
-                  <ValidatedField
-                    row
-                    label={translate('microcreditclientApp.vehicleBrand.brand')}
-                    id="vehicle-brand-brand"
-                    name="brand"
-                    className="col-md-3"
-                    data-cy="brand"
-                    type="text"
-                    validate={{
-                      required: { value: true, message: translate('entity.validation.required') },
-                    }}
-                  />
-                  <ValidatedField
-                    label={translate('microcreditclientApp.vehicleBrand.description')}
-                    id="vehicle-brand-description"
-                    row
-                    name="description"
-                    className="col-md-6"
-                    data-cy="description"
-                    type="text"
-                    validate={{
-                      required: { value: true, message: translate('entity.validation.required') },
-                    }}
-                  />
+          <Row className="justify-content-center mt-3">
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              <ValidatedForm className="row" defaultValues={defaultValues()} onSubmit={saveEntity}>
+                <Col md="12" className="d-flex justify-content-start">
                   <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/vehicle-brand" replace color="info">
                     <FontAwesomeIcon icon="arrow-left" />
                     &nbsp;
@@ -147,11 +112,36 @@ export const VehicleBrandUpdate = () => {
                     &nbsp;
                     <Translate contentKey="entity.action.save">Save</Translate>
                   </Button>
-                </ValidatedForm>
-              )}
-            </Row>
-            <VehicleTabSection mode="new" />
-          </Box>
+                </Col>
+                <br />
+                <ValidatedField
+                  row
+                  label={translate('microcreditclientApp.vehicleBrand.brand')}
+                  id="vehicle-brand-brand"
+                  name="brand"
+                  className="col-md-3"
+                  data-cy="brand"
+                  type="text"
+                  validate={{
+                    required: { value: true, message: translate('entity.validation.required') },
+                  }}
+                />
+                <ValidatedField
+                  label={translate('microcreditclientApp.vehicleBrand.description')}
+                  id="vehicle-brand-description"
+                  row
+                  name="description"
+                  className="col-md-4"
+                  data-cy="description"
+                  type="text"
+                  validate={{
+                    required: { value: true, message: translate('entity.validation.required') },
+                  }}
+                />
+              </ValidatedForm>
+            )}
+          </Row>
+          <VehicleTabSection mode="new" />
         </Box>
       </div>
     </Box>

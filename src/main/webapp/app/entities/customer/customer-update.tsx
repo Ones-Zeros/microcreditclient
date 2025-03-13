@@ -11,6 +11,7 @@ import { Box, Typography } from '@mui/material';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { CustomerStatus } from 'app/shared/model/enumerations/customer-status.model';
 import { createEntity, getEntity, reset, updateEntity } from './customer.reducer';
+import CustomerTabSection from './customer-tab-section';
 
 export const CustomerUpdate = () => {
   const dispatch = useAppDispatch();
@@ -267,6 +268,7 @@ export const CustomerUpdate = () => {
               </ValidatedForm>
             )}
           </Row>
+          <CustomerTabSection mode={mode} />
         </Box>
       </div>
     </Box>

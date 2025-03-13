@@ -14,7 +14,7 @@ const initialState: EntityState<IVehicleModel> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/vehicle-brand';
+const apiUrl = 'api/vehicle-brands';
 const apiSearchUrl = 'api/vehicle-models/_search';
 
 // Actions
@@ -31,7 +31,7 @@ export const searchEntities = createAsyncThunk(
 export const getEntities = createAsyncThunk(
   'vehicleModel/fetch_entity_list',
   async ({ id, page, size, sort }: IIdQueryParams) => {
-    const requestUrl = `${apiUrl}/${id}/vehicle-model?${sort ? `page=${page}&size=${size}&sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
+    const requestUrl = `${apiUrl}/${id}/models?${sort ? `page=${page}&size=${size}&sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
     return axios.get<IVehicleModel[]>(requestUrl);
   },
   { serializeError: serializeAxiosError },
@@ -82,6 +82,24 @@ export const deleteEntity = createAsyncThunk(
     const requestUrl = `${apiUrl}/${id}`;
     const result = await axios.delete<IVehicleModel>(requestUrl);
     thunkAPI.dispatch(getEntities({}));
+    return result;
+  },
+  { serializeError: serializeAxiosError },
+);
+
+export const createEntityByVehicleBrand = createAsyncThunk(
+  'vehicleModel/create_entity_by_vehicle_brand',
+  async (entity: IVehicleModel, thunkAPI) => {
+    const result = await axios.post<IVehicleModel>(`${apiUrl}/${entity.vehicleBrand.id}/models`, cleanEntity(entity));
+    // Dispatch createEntityByTravelRequest with the TR ID from the entity
+    thunkAPI.dispatch(
+      getEntities({
+        id: entity.vehicleBrand.id || 0,
+        page: 0, // Default page
+        size: 20, // Default size
+        sort: 'id', // Default sort
+      }),
+    );
     return result;
   },
   { serializeError: serializeAxiosError },

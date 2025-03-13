@@ -10,6 +10,7 @@ import { Button, Col, Form, FormGroup, Input, InputGroup, Row, Table } from 'rea
 
 import FormHeader from 'app/shared/Components/FormHeader';
 import { getEntities, searchEntities } from './vehicle-brand.reducer';
+import PaginationComponent from 'app/shared/Components/PaginationComponent';
 
 export const VehicleBrand = () => {
   const dispatch = useAppDispatch();
@@ -173,7 +174,7 @@ export const VehicleBrand = () => {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={sort('id')}>
+                <th style={{ display: 'none' }} className="hand" onClick={sort('id')}>
                   <Translate contentKey="microcreditclientApp.vehicleBrand.id">Id</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
@@ -191,7 +192,7 @@ export const VehicleBrand = () => {
             <tbody>
               {vehicleBrandList.map((vehicleBrand, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
+                  <td style={{ display: 'none' }}>
                     <Button tag={Link} to={`/vehicle-brand/${vehicleBrand.id}`} color="link" size="sm">
                       {vehicleBrand.id}
                     </Button>
@@ -245,24 +246,13 @@ export const VehicleBrand = () => {
           )
         )}
       </div>
-      {totalItems ? (
-        <div className={vehicleBrandList && vehicleBrandList.length > 0 ? '' : 'd-none'}>
-          <div className="justify-content-center d-flex">
-            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled />
-          </div>
-          <div className="justify-content-center d-flex">
-            <JhiPagination
-              activePage={paginationState.activePage}
-              onSelect={handlePagination}
-              maxButtons={5}
-              itemsPerPage={paginationState.itemsPerPage}
-              totalItems={totalItems}
-            />
-          </div>
-        </div>
-      ) : (
-        ''
-      )}
+      <PaginationComponent
+        totalItems={totalItems}
+        itemsPerPage={paginationState.itemsPerPage}
+        activePage={paginationState.activePage}
+        handlePagination={handlePagination}
+        entityList={vehicleBrandList}
+      />
     </div>
   );
 };

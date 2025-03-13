@@ -132,296 +132,294 @@ export const CustomerLoanUpdate = () => {
           }}
         >
           <Row className="justify-content-center mt-3">
-            <Col md="8">
-              {loading ? (
-                <p>Loading...</p>
-              ) : (
-                <ValidatedForm className="row" defaultValues={defaultValues()} onSubmit={saveEntity}>
-                  {!isNew ? (
-                    <ValidatedField
-                      row
-                      className="col-md-4"
-                      name="id"
-                      required
-                      readOnly
-                      id="customer-loan-id"
-                      label={translate('global.field.id')}
-                      validate={{ required: true }}
-                    />
-                  ) : null}
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              <ValidatedForm className="row" defaultValues={defaultValues()} onSubmit={saveEntity}>
+                {!isNew ? (
                   <ValidatedField
                     row
                     className="col-md-4"
-                    label={translate('microcreditclientApp.customerLoan.loanId')}
-                    id="customer-loan-loanId"
-                    name="loanId"
-                    data-cy="loanId"
-                    type="text"
-                    validate={{
-                      required: { value: true, message: translate('entity.validation.required') },
-                    }}
+                    name="id"
+                    required
+                    readOnly
+                    id="customer-loan-id"
+                    label={translate('global.field.id')}
+                    validate={{ required: true }}
                   />
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    label={translate('microcreditclientApp.customerLoan.amount')}
-                    id="customer-loan-amount"
-                    name="amount"
-                    data-cy="amount"
-                    type="text"
-                    validate={{
-                      required: { value: true, message: translate('entity.validation.required') },
-                      validate: v => isNumber(v) || translate('entity.validation.number'),
-                    }}
-                  />
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    label={translate('microcreditclientApp.customerLoan.loanPaymentType')}
-                    id="customer-loan-loanPaymentType"
-                    name="loanPaymentType"
-                    data-cy="loanPaymentType"
-                    type="select"
-                  >
-                    {paymentTypeValues.map(paymentType => (
-                      <option value={paymentType} key={paymentType}>
-                        {translate(`microcreditclientApp.PaymentType.${paymentType}`)}
-                      </option>
-                    ))}
-                  </ValidatedField>
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    label={translate('microcreditclientApp.customerLoan.loanPeriod')}
-                    id="customer-loan-loanPeriod"
-                    name="loanPeriod"
-                    data-cy="loanPeriod"
-                    type="text"
-                    validate={{
-                      required: { value: true, message: translate('entity.validation.required') },
-                      validate: v => isNumber(v) || translate('entity.validation.number'),
-                    }}
-                  />
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    label={translate('microcreditclientApp.customerLoan.createdDate')}
-                    id="customer-loan-createdDate"
-                    name="createdDate"
-                    data-cy="createdDate"
-                    type="date"
-                    validate={{
-                      required: { value: true, message: translate('entity.validation.required') },
-                    }}
-                  />
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    label={translate('microcreditclientApp.customerLoan.lastModifiedDate')}
-                    id="customer-loan-lastModifiedDate"
-                    name="lastModifiedDate"
-                    data-cy="lastModifiedDate"
-                    type="date"
-                  />
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    label={translate('microcreditclientApp.customerLoan.paymentStartDate')}
-                    id="customer-loan-paymentStartDate"
-                    name="paymentStartDate"
-                    data-cy="paymentStartDate"
-                    type="date"
-                  />
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    label={translate('microcreditclientApp.customerLoan.paymentEndDate')}
-                    id="customer-loan-paymentEndDate"
-                    name="paymentEndDate"
-                    data-cy="paymentEndDate"
-                    type="date"
-                  />
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    label={translate('microcreditclientApp.customerLoan.status')}
-                    id="customer-loan-status"
-                    name="status"
-                    data-cy="status"
-                    type="select"
-                  >
-                    {loanStatusValues.map(loanStatus => (
-                      <option value={loanStatus} key={loanStatus}>
-                        {translate(`microcreditclientApp.LoanStatus.${loanStatus}`)}
-                      </option>
-                    ))}
-                  </ValidatedField>
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    label={translate('microcreditclientApp.customerLoan.insertTs')}
-                    id="customer-loan-insertTs"
-                    name="insertTs"
-                    data-cy="insertTs"
-                    type="datetime-local"
-                    placeholder="YYYY-MM-DD HH:mm"
-                  />
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    label={translate('microcreditclientApp.customerLoan.modifiedTs')}
-                    id="customer-loan-modifiedTs"
-                    name="modifiedTs"
-                    data-cy="modifiedTs"
-                    type="datetime-local"
-                    placeholder="YYYY-MM-DD HH:mm"
-                  />
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    id="customer-loan-valuationReport"
-                    name="valuationReport"
-                    data-cy="valuationReport"
-                    label={translate('microcreditclientApp.customerLoan.valuationReport')}
-                    type="select"
-                  >
-                    <option value="" key="0" />
-                    {vehicleValuationReports
-                      ? vehicleValuationReports.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </ValidatedField>
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    id="customer-loan-installmentPlan"
-                    name="installmentPlan"
-                    data-cy="installmentPlan"
-                    label={translate('microcreditclientApp.customerLoan.installmentPlan')}
-                    type="select"
-                  >
-                    <option value="" key="0" />
-                    {installmentPlans
-                      ? installmentPlans.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </ValidatedField>
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    id="customer-loan-createdBy"
-                    name="createdBy"
-                    data-cy="createdBy"
-                    label={translate('microcreditclientApp.customerLoan.createdBy')}
-                    type="select"
-                  >
-                    <option value="" key="0" />
-                    {users
-                      ? users.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </ValidatedField>
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    id="customer-loan-modifiedBy"
-                    name="modifiedBy"
-                    data-cy="modifiedBy"
-                    label={translate('microcreditclientApp.customerLoan.modifiedBy')}
-                    type="select"
-                  >
-                    <option value="" key="0" />
-                    {users
-                      ? users.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </ValidatedField>
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    id="customer-loan-customer"
-                    name="customer"
-                    data-cy="customer"
-                    label={translate('microcreditclientApp.customerLoan.customer')}
-                    type="select"
-                  >
-                    <option value="" key="0" />
-                    {customers
-                      ? customers.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </ValidatedField>
-                  <ValidatedField
-                    row
-                    className="col-md-4"
-                    id="customer-loan-loanTemplate"
-                    name="loanTemplate"
-                    data-cy="loanTemplate"
-                    label={translate('microcreditclientApp.customerLoan.loanTemplate')}
-                    type="select"
-                  >
-                    <option value="" key="0" />
-                    {loanTemplates
-                      ? loanTemplates.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </ValidatedField>
-                  <Row className="justify-content-end mt-3 d-flex">
-                    <Col md="auto">
-                      {' '}
-                      <Button
-                        tag={Link}
-                        id="cancel-save"
-                        data-cy="entityCreateCancelButton"
-                        to="/customer-loan"
-                        replace
-                        color="info"
-                        className="btn-sm mr-2"
-                      >
-                        <FontAwesomeIcon icon="arrow-left" />
-                        &nbsp;
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.back">Back</Translate>
-                        </span>
-                      </Button>
-                    </Col>
-                    <Col md="auto">
-                      {' '}
-                      <Button
-                        color="primary"
-                        id="save-entity"
-                        data-cy="entityCreateSaveButton"
-                        type="submit"
-                        disabled={updating}
-                        className="btn-sm"
-                      >
-                        <FontAwesomeIcon icon="save" />
-                        &nbsp;
-                        <Translate contentKey="entity.action.save">Save</Translate>
-                      </Button>
-                    </Col>
-                  </Row>
-                </ValidatedForm>
-              )}
-            </Col>
+                ) : null}
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  label={translate('microcreditclientApp.customerLoan.loanId')}
+                  id="customer-loan-loanId"
+                  name="loanId"
+                  data-cy="loanId"
+                  type="text"
+                  validate={{
+                    required: { value: true, message: translate('entity.validation.required') },
+                  }}
+                />
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  label={translate('microcreditclientApp.customerLoan.amount')}
+                  id="customer-loan-amount"
+                  name="amount"
+                  data-cy="amount"
+                  type="text"
+                  validate={{
+                    required: { value: true, message: translate('entity.validation.required') },
+                    validate: v => isNumber(v) || translate('entity.validation.number'),
+                  }}
+                />
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  label={translate('microcreditclientApp.customerLoan.loanPaymentType')}
+                  id="customer-loan-loanPaymentType"
+                  name="loanPaymentType"
+                  data-cy="loanPaymentType"
+                  type="select"
+                >
+                  {paymentTypeValues.map(paymentType => (
+                    <option value={paymentType} key={paymentType}>
+                      {translate(`microcreditclientApp.PaymentType.${paymentType}`)}
+                    </option>
+                  ))}
+                </ValidatedField>
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  label={translate('microcreditclientApp.customerLoan.loanPeriod')}
+                  id="customer-loan-loanPeriod"
+                  name="loanPeriod"
+                  data-cy="loanPeriod"
+                  type="text"
+                  validate={{
+                    required: { value: true, message: translate('entity.validation.required') },
+                    validate: v => isNumber(v) || translate('entity.validation.number'),
+                  }}
+                />
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  label={translate('microcreditclientApp.customerLoan.createdDate')}
+                  id="customer-loan-createdDate"
+                  name="createdDate"
+                  data-cy="createdDate"
+                  type="date"
+                  validate={{
+                    required: { value: true, message: translate('entity.validation.required') },
+                  }}
+                />
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  label={translate('microcreditclientApp.customerLoan.lastModifiedDate')}
+                  id="customer-loan-lastModifiedDate"
+                  name="lastModifiedDate"
+                  data-cy="lastModifiedDate"
+                  type="date"
+                />
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  label={translate('microcreditclientApp.customerLoan.paymentStartDate')}
+                  id="customer-loan-paymentStartDate"
+                  name="paymentStartDate"
+                  data-cy="paymentStartDate"
+                  type="date"
+                />
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  label={translate('microcreditclientApp.customerLoan.paymentEndDate')}
+                  id="customer-loan-paymentEndDate"
+                  name="paymentEndDate"
+                  data-cy="paymentEndDate"
+                  type="date"
+                />
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  label={translate('microcreditclientApp.customerLoan.status')}
+                  id="customer-loan-status"
+                  name="status"
+                  data-cy="status"
+                  type="select"
+                >
+                  {loanStatusValues.map(loanStatus => (
+                    <option value={loanStatus} key={loanStatus}>
+                      {translate(`microcreditclientApp.LoanStatus.${loanStatus}`)}
+                    </option>
+                  ))}
+                </ValidatedField>
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  label={translate('microcreditclientApp.customerLoan.insertTs')}
+                  id="customer-loan-insertTs"
+                  name="insertTs"
+                  data-cy="insertTs"
+                  type="datetime-local"
+                  placeholder="YYYY-MM-DD HH:mm"
+                />
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  label={translate('microcreditclientApp.customerLoan.modifiedTs')}
+                  id="customer-loan-modifiedTs"
+                  name="modifiedTs"
+                  data-cy="modifiedTs"
+                  type="datetime-local"
+                  placeholder="YYYY-MM-DD HH:mm"
+                />
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  id="customer-loan-valuationReport"
+                  name="valuationReport"
+                  data-cy="valuationReport"
+                  label={translate('microcreditclientApp.customerLoan.valuationReport')}
+                  type="select"
+                >
+                  <option value="" key="0" />
+                  {vehicleValuationReports
+                    ? vehicleValuationReports.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  id="customer-loan-installmentPlan"
+                  name="installmentPlan"
+                  data-cy="installmentPlan"
+                  label={translate('microcreditclientApp.customerLoan.installmentPlan')}
+                  type="select"
+                >
+                  <option value="" key="0" />
+                  {installmentPlans
+                    ? installmentPlans.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  id="customer-loan-createdBy"
+                  name="createdBy"
+                  data-cy="createdBy"
+                  label={translate('microcreditclientApp.customerLoan.createdBy')}
+                  type="select"
+                >
+                  <option value="" key="0" />
+                  {users
+                    ? users.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  id="customer-loan-modifiedBy"
+                  name="modifiedBy"
+                  data-cy="modifiedBy"
+                  label={translate('microcreditclientApp.customerLoan.modifiedBy')}
+                  type="select"
+                >
+                  <option value="" key="0" />
+                  {users
+                    ? users.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  id="customer-loan-customer"
+                  name="customer"
+                  data-cy="customer"
+                  label={translate('microcreditclientApp.customerLoan.customer')}
+                  type="select"
+                >
+                  <option value="" key="0" />
+                  {customers
+                    ? customers.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+                <ValidatedField
+                  row
+                  className="col-md-4"
+                  id="customer-loan-loanTemplate"
+                  name="loanTemplate"
+                  data-cy="loanTemplate"
+                  label={translate('microcreditclientApp.customerLoan.loanTemplate')}
+                  type="select"
+                >
+                  <option value="" key="0" />
+                  {loanTemplates
+                    ? loanTemplates.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </ValidatedField>
+                <Row className="justify-content-end mt-3 d-flex">
+                  <Col md="auto">
+                    {' '}
+                    <Button
+                      tag={Link}
+                      id="cancel-save"
+                      data-cy="entityCreateCancelButton"
+                      to="/customer-loan"
+                      replace
+                      color="info"
+                      className="btn-sm mr-2"
+                    >
+                      <FontAwesomeIcon icon="arrow-left" />
+                      &nbsp;
+                      <span className="d-none d-md-inline">
+                        <Translate contentKey="entity.action.back">Back</Translate>
+                      </span>
+                    </Button>
+                  </Col>
+                  <Col md="auto">
+                    {' '}
+                    <Button
+                      color="primary"
+                      id="save-entity"
+                      data-cy="entityCreateSaveButton"
+                      type="submit"
+                      disabled={updating}
+                      className="btn-sm"
+                    >
+                      <FontAwesomeIcon icon="save" />
+                      &nbsp;
+                      <Translate contentKey="entity.action.save">Save</Translate>
+                    </Button>
+                  </Col>
+                </Row>
+              </ValidatedForm>
+            )}
           </Row>
         </Box>
       </div>
