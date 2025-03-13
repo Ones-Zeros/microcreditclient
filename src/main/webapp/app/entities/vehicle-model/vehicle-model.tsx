@@ -1,84 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button, Col, Form, FormGroup, Input, InputGroup, Row, Table } from 'reactstrap';
-import { JhiItemCount, JhiPagination, TextFormat, Translate, getPaginationState, translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { APP_DATE_FORMAT } from 'app/config/constants';
-import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
+import React, { useEffect, useState } from 'react';
+import { JhiItemCount, JhiPagination, TextFormat, Translate, getPaginationState } from 'react-jhipster';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Button, Table } from 'reactstrap';
 
-import { getEntities, searchEntities } from './vehicle-model.reducer';
+import { getEntities } from './vehicle-model.reducer';
 
 export const VehicleModel = () => {
   const dispatch = useAppDispatch();
 
+  const queryParams = new URLSearchParams();
+
   const pageLocation = useLocation();
   const navigate = useNavigate();
 
-  const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getPaginationState(pageLocation, ITEMS_PER_PAGE, 'id'), pageLocation.search),
   );
 
-  const vehicleModelList = useAppSelector(state => state.vehicleModel.entities);
   const loading = useAppSelector(state => state.vehicleModel.loading);
   const totalItems = useAppSelector(state => state.vehicleModel.totalItems);
+  const vehicleModelList = useAppSelector(state => state.vehicleModel.entities);
+  const vehicleBrand = useAppSelector(state => state.vehicleBrand.entity);
+
+  queryParams.set('vehicleBrand.equals', vehicleBrand.id);
 
   const getAllEntities = () => {
-    if (search) {
-      dispatch(
-        searchEntities({
-          query: search,
-          page: paginationState.activePage - 1,
-          size: paginationState.itemsPerPage,
-          sort: `${paginationState.sort},${paginationState.order}`,
-        }),
-      );
-    } else {
-      dispatch(
-        getEntities({
-          page: paginationState.activePage - 1,
-          size: paginationState.itemsPerPage,
-          sort: `${paginationState.sort},${paginationState.order}`,
-        }),
-      );
-    }
+    dispatch(
+      getEntities({
+        id: vehicleBrand.id,
+        page: paginationState.activePage - 1,
+        size: paginationState.itemsPerPage,
+        sort: `${paginationState.sort},${paginationState.order}`,
+      }),
+    );
   };
-
-  const startSearching = e => {
-    if (search) {
-      setPaginationState({
-        ...paginationState,
-        activePage: 1,
-      });
-      dispatch(
-        searchEntities({
-          query: search,
-          page: paginationState.activePage - 1,
-          size: paginationState.itemsPerPage,
-          sort: `${paginationState.sort},${paginationState.order}`,
-        }),
-      );
-    }
-    e.preventDefault();
-  };
-
-  const clear = () => {
-    setSearch('');
-    setPaginationState({
-      ...paginationState,
-      activePage: 1,
-    });
-    dispatch(getEntities({}));
-  };
-
-  const handleSearch = event => setSearch(event.target.value);
 
   const sortEntities = () => {
     getAllEntities();
-    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
+    const endURL = `?${queryParams.toString()}&page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
     if (pageLocation.search !== endURL) {
       navigate(`${pageLocation.pathname}${endURL}`);
     }
@@ -86,7 +51,7 @@ export const VehicleModel = () => {
 
   useEffect(() => {
     sortEntities();
-  }, [paginationState.activePage, paginationState.order, paginationState.sort, search]);
+  }, [paginationState.activePage, paginationState.order, paginationState.sort]);
 
   useEffect(() => {
     const params = new URLSearchParams(pageLocation.search);
@@ -146,29 +111,7 @@ export const VehicleModel = () => {
           </Link>
         </div>
       </h2>
-      <Row>
-        <Col sm="12">
-          <Form onSubmit={startSearching}>
-            <FormGroup>
-              <InputGroup>
-                <Input
-                  type="text"
-                  name="search"
-                  defaultValue={search}
-                  onChange={handleSearch}
-                  placeholder={translate('microcreditclientApp.vehicleModel.home.search')}
-                />
-                <Button className="input-group-addon">
-                  <FontAwesomeIcon icon="search" />
-                </Button>
-                <Button type="reset" className="input-group-addon" onClick={clear}>
-                  <FontAwesomeIcon icon="trash" />
-                </Button>
-              </InputGroup>
-            </FormGroup>
-          </Form>
-        </Col>
-      </Row>
+
       <div className="table-responsive">
         {vehicleModelList && vehicleModelList.length > 0 ? (
           <Table responsive>

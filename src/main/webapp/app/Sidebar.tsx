@@ -32,25 +32,6 @@ const Sidebar = (props: IHeaderProps) => {
             Home
           </NavLink>
         </NavItem>
-        <NavItem>
-          <NavLink href="#" onClick={toggleLoans}>
-            Bank Info
-          </NavLink>
-          <Collapse isOpen={isLoansOpen}>
-            <Nav className="ml-3" vertical>
-              <NavItem>
-                <NavLink tag={Link} to="/bank">
-                  Bank
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/bank-branch">
-                  Branches
-                </NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </NavItem>
         <NavLink tag={Link} to="/customer">
           Customer
         </NavLink>
@@ -83,6 +64,25 @@ const Sidebar = (props: IHeaderProps) => {
           <NavLink tag={Link} to="/reports">
             Reports
           </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="#" onClick={toggleLoans}>
+            Basic Data
+          </NavLink>
+          <Collapse isOpen={isLoansOpen}>
+            <Nav className="ml-3" vertical>
+              <NavItem>
+                <NavLink tag={Link} to="/bank">
+                  Bank
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/bank-branch">
+                  Branches
+                </NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
         </NavItem>
         {props.isAdmin && (
           <NavItem>

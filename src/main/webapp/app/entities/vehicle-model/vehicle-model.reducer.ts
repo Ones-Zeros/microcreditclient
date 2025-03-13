@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, isFulfilled, isPending } from '@reduxjs/toolkit';
 import { cleanEntity } from 'app/shared/util/entity-utils';
-import { EntityState, IQueryParams, createEntitySlice, serializeAxiosError } from 'app/shared/reducers/reducer.utils';
+import { EntityState, IIdQueryParams, IQueryParams, createEntitySlice, serializeAxiosError } from 'app/shared/reducers/reducer.utils';
 import { IVehicleModel, defaultValue } from 'app/shared/model/vehicle-model.model';
 
 const initialState: EntityState<IVehicleModel> = {
@@ -14,7 +14,7 @@ const initialState: EntityState<IVehicleModel> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/vehicle-models';
+const apiUrl = 'api/vehicle-brand';
 const apiSearchUrl = 'api/vehicle-models/_search';
 
 // Actions
@@ -30,8 +30,8 @@ export const searchEntities = createAsyncThunk(
 
 export const getEntities = createAsyncThunk(
   'vehicleModel/fetch_entity_list',
-  async ({ page, size, sort }: IQueryParams) => {
-    const requestUrl = `${apiUrl}?${sort ? `page=${page}&size=${size}&sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
+  async ({ id, page, size, sort }: IIdQueryParams) => {
+    const requestUrl = `${apiUrl}/${id}/vehicle-model?${sort ? `page=${page}&size=${size}&sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
     return axios.get<IVehicleModel[]>(requestUrl);
   },
   { serializeError: serializeAxiosError },

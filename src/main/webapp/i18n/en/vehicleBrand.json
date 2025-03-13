@@ -4,7 +4,7 @@
       "home": {
         "title": "Vehicle Brands",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Vehicle Brand",
+        "createLabel": "New",
         "createOrEditLabel": "Create or edit a Vehicle Brand",
         "search": "Search for Vehicle Brand",
         "notFound": "No Vehicle Brands found"
