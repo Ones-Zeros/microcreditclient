@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, isFulfilled, isPending } from '@reduxjs/toolkit';
 import { cleanEntity } from 'app/shared/util/entity-utils';
-import { EntityState, IQueryParams, createEntitySlice, serializeAxiosError } from 'app/shared/reducers/reducer.utils';
+import { EntityState, IIdQueryParams, IQueryParams, createEntitySlice, serializeAxiosError } from 'app/shared/reducers/reducer.utils';
 import { IBankBranch, defaultValue } from 'app/shared/model/bank-branch.model';
 
 const initialState: EntityState<IBankBranch> = {
@@ -35,6 +35,16 @@ export const getEntities = createAsyncThunk(
     return axios.get<IBankBranch[]>(requestUrl);
   },
   { serializeError: serializeAxiosError },
+);
+export const getEntitiesByBank = createAsyncThunk(
+  'bankBranch/fetch_entity_list_by_bank',
+  async ({ id, page, size, sort }: { id: number; page: number; size: number; sort: string }) => {
+    const requestUrl = `api/bank-branches/by-bank/${id}${
+      sort ? `?page=${page}&size=${size}&sort=${sort}&` : '?'
+    }cacheBuster=${new Date().getTime()}`;
+
+    return axios.get<IBankBranch[]>(requestUrl);
+  },
 );
 
 export const getEntity = createAsyncThunk(
@@ -88,36 +98,28 @@ export const deleteEntity = createAsyncThunk(
 );
 
 // slice
-
 export const BankBranchSlice = createEntitySlice({
   name: 'bankBranch',
   initialState,
   extraReducers(builder) {
     builder
+      // Handle the fulfilled state of fetching bank branches by bankId
+      .addCase(getEntitiesByBank.fulfilled, (state, action) => {
+        const { data, headers } = action.payload;
+        state.loading = false;
+        state.entities = data;
+        state.totalItems = parseInt(headers['x-total-count'], 10);
+      })
+      // Handle other cases
       .addCase(getEntity.fulfilled, (state, action) => {
         state.loading = false;
         state.entity = action.payload.data;
       })
-      .addCase(deleteEntity.fulfilled, state => {
-        state.updating = false;
-        state.updateSuccess = true;
-        state.entity = {};
-      })
       .addMatcher(isFulfilled(getEntities, searchEntities), (state, action) => {
         const { data, headers } = action.payload;
-
-        return {
-          ...state,
-          loading: false,
-          entities: data,
-          totalItems: parseInt(headers['x-total-count'], 10),
-        };
-      })
-      .addMatcher(isFulfilled(createEntity, updateEntity, partialUpdateEntity), (state, action) => {
-        state.updating = false;
         state.loading = false;
-        state.updateSuccess = true;
-        state.entity = action.payload.data;
+        state.entities = data;
+        state.totalItems = parseInt(headers['x-total-count'], 10);
       })
       .addMatcher(isPending(getEntities, getEntity, searchEntities), state => {
         state.errorMessage = null;

@@ -11,7 +11,7 @@ import { getEntity } from './bank-branch.reducer';
 
 export const BankBranchDetail = () => {
   const dispatch = useAppDispatch();
-
+  const bankId = useAppSelector(state => state.bank.entity.id);
   const { id } = useParams<'id'>();
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export const BankBranchDetail = () => {
           </dt>
           <dd>{bankBranchEntity.bank ? bankBranchEntity.bank.id : ''}</dd>
         </dl>
-        <Button tag={Link} to="/bank-branch" replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} to={`/bank/${bankId}/edit`} replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>
