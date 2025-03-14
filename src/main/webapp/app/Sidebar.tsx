@@ -63,9 +63,9 @@ const Sidebar = (props: IHeaderProps) => {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} to="/bank-branch">
+                {/* <NavLink tag={Link} to="/bank-branch">
                   Branches
-                </NavLink>
+                </NavLink> */}
               </NavItem>
             </Nav>
           </Collapse>

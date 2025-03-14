@@ -11,6 +11,7 @@ import { getUsers } from 'app/modules/administration/user-management/user-manage
 import CancelButton from 'app/shared/Components/CancelButton';
 import SaveButton from 'app/shared/Components/SaveButton';
 import { createEntity, getEntity, partialUpdateEntity, reset } from './bank.reducer';
+import BankTabbedSection from './BankTabbedSection';
 
 export const BankUpdate = () => {
   const dispatch = useAppDispatch();
@@ -36,10 +37,7 @@ export const BankUpdate = () => {
   const loading = useAppSelector(state => state.bank.loading);
   const updating = useAppSelector(state => state.bank.updating);
   const updateSuccess = useAppSelector(state => state.bank.updateSuccess);
-
-  const handleClose = () => {
-    navigate(`/bank${location.search}`);
-  };
+  const bankId = useAppSelector(state => state.bank.entity.id);
 
   useEffect(() => {
     if (isNew) {
@@ -53,7 +51,7 @@ export const BankUpdate = () => {
 
   useEffect(() => {
     if (updateSuccess) {
-      handleClose();
+      navigate(`/bank/${bankId}/edit`);
     }
   }, [updateSuccess]);
 
@@ -115,8 +113,9 @@ export const BankUpdate = () => {
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <ValidatedForm className="row" defaultValues={defaultValues()} onSubmit={saveEntity}>
-                {/* {!isNew ? (
+              <>
+                <ValidatedForm className="row" defaultValues={defaultValues()} onSubmit={saveEntity}>
+                  {/* {!isNew ? (
                   <ValidatedField
                     name="id"
                     required
@@ -126,28 +125,32 @@ export const BankUpdate = () => {
                     validate={{ required: true }}
                   />
                 ) : null} */}
-                <ValidatedField
-                  row
-                  style={{ fontSize: '12px' }}
-                  label={translate('microcreditclientApp.bank.bankName')}
-                  id="bank-bankName"
-                  name="bankName"
-                  data-cy="bankName"
-                  className="col-md-4"
-                  type="text"
-                  validate={{
-                    required: { value: true, message: translate('entity.validation.required') },
-                  }}
-                />
+                  <ValidatedField
+                    row
+                    style={{ fontSize: '12px' }}
+                    label={translate('microcreditclientApp.bank.bankName')}
+                    id="bank-bankName"
+                    name="bankName"
+                    data-cy="bankName"
+                    className="col-md-4"
+                    type="text"
+                    validate={{
+                      required: { value: true, message: translate('entity.validation.required') },
+                    }}
+                  />
 
-                <Row className="justify-content-end" style={{ marginTop: '30px' }}>
-                  <Col md={12} className="d-flex justify-content-end">
-                    {mode === 'new' || mode === 'view' ? <CancelButton to="/bank" /> : null}
-                    &nbsp;
-                    {!(mode !== 'edit' && mode !== 'new') || mode === 'new' || mode === 'edit' ? <SaveButton updating={updating} /> : null}
-                  </Col>
-                </Row>
-              </ValidatedForm>
+                  <Row className="justify-content-end" style={{ marginTop: '30px' }}>
+                    <Col md={12} className="d-flex justify-content-end">
+                      {mode === 'new' || mode === 'view' || mode === 'edit' ? <CancelButton to="/bank" /> : null}
+                      &nbsp;
+                      {!(mode !== 'edit' && mode !== 'new') || mode === 'new' || mode === 'edit' ? (
+                        <SaveButton updating={updating} />
+                      ) : null}
+                    </Col>
+                  </Row>
+                </ValidatedForm>
+                {!isNew ? <BankTabbedSection /> : null}
+              </>
             )}
           </Row>
         </Box>
