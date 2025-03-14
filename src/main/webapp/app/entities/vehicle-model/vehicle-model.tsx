@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button, Col, Form, FormGroup, Input, InputGroup, Row, Table } from 'reactstrap';
-import { JhiItemCount, JhiPagination, TextFormat, Translate, getPaginationState, translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import { APP_DATE_FORMAT } from 'app/config/constants';
-import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
+import React, { useEffect, useState } from 'react';
+import { Translate, getPaginationState } from 'react-jhipster';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Button, Table } from 'reactstrap';
 
-import { getEntities, searchEntities } from './vehicle-model.reducer';
+import FormHeader from 'app/shared/Components/FormHeader';
+import PaginationComponent from 'app/shared/Components/PaginationComponent';
+import { getEntities } from './vehicle-model.reducer';
+import { CircularProgress } from '@mui/material';
 
 export const VehicleModel = () => {
   const dispatch = useAppDispatch();
@@ -17,64 +19,25 @@ export const VehicleModel = () => {
   const pageLocation = useLocation();
   const navigate = useNavigate();
 
-  const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getPaginationState(pageLocation, ITEMS_PER_PAGE, 'id'), pageLocation.search),
   );
 
-  const vehicleModelList = useAppSelector(state => state.vehicleModel.entities);
   const loading = useAppSelector(state => state.vehicleModel.loading);
   const totalItems = useAppSelector(state => state.vehicleModel.totalItems);
+  const vehicleModelList = useAppSelector(state => state.vehicleModel.entities);
+  const vehicleBrand = useAppSelector(state => state.vehicleBrand.entity);
 
   const getAllEntities = () => {
-    if (search) {
-      dispatch(
-        searchEntities({
-          query: search,
-          page: paginationState.activePage - 1,
-          size: paginationState.itemsPerPage,
-          sort: `${paginationState.sort},${paginationState.order}`,
-        }),
-      );
-    } else {
-      dispatch(
-        getEntities({
-          page: paginationState.activePage - 1,
-          size: paginationState.itemsPerPage,
-          sort: `${paginationState.sort},${paginationState.order}`,
-        }),
-      );
-    }
+    dispatch(
+      getEntities({
+        id: vehicleBrand.id,
+        page: paginationState.activePage - 1,
+        size: paginationState.itemsPerPage,
+        sort: `${paginationState.sort},${paginationState.order}`,
+      }),
+    );
   };
-
-  const startSearching = e => {
-    if (search) {
-      setPaginationState({
-        ...paginationState,
-        activePage: 1,
-      });
-      dispatch(
-        searchEntities({
-          query: search,
-          page: paginationState.activePage - 1,
-          size: paginationState.itemsPerPage,
-          sort: `${paginationState.sort},${paginationState.order}`,
-        }),
-      );
-    }
-    e.preventDefault();
-  };
-
-  const clear = () => {
-    setSearch('');
-    setPaginationState({
-      ...paginationState,
-      activePage: 1,
-    });
-    dispatch(getEntities({}));
-  };
-
-  const handleSearch = event => setSearch(event.target.value);
 
   const sortEntities = () => {
     getAllEntities();
@@ -86,7 +49,11 @@ export const VehicleModel = () => {
 
   useEffect(() => {
     sortEntities();
-  }, [paginationState.activePage, paginationState.order, paginationState.sort, search]);
+  }, []);
+
+  useEffect(() => {
+    sortEntities();
+  }, [paginationState.activePage, paginationState.order, paginationState.sort]);
 
   useEffect(() => {
     const params = new URLSearchParams(pageLocation.search);
@@ -131,9 +98,9 @@ export const VehicleModel = () => {
   };
 
   return (
-    <div>
+    <div className="padding-top: 20px">
       <h2 id="vehicle-model-heading" data-cy="VehicleModelHeading">
-        <Translate contentKey="microcreditclientApp.vehicleModel.home.title">Vehicle Models</Translate>
+        <FormHeader title="Vehicle Models" />
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
@@ -146,35 +113,15 @@ export const VehicleModel = () => {
           </Link>
         </div>
       </h2>
-      <Row>
-        <Col sm="12">
-          <Form onSubmit={startSearching}>
-            <FormGroup>
-              <InputGroup>
-                <Input
-                  type="text"
-                  name="search"
-                  defaultValue={search}
-                  onChange={handleSearch}
-                  placeholder={translate('microcreditclientApp.vehicleModel.home.search')}
-                />
-                <Button className="input-group-addon">
-                  <FontAwesomeIcon icon="search" />
-                </Button>
-                <Button type="reset" className="input-group-addon" onClick={clear}>
-                  <FontAwesomeIcon icon="trash" />
-                </Button>
-              </InputGroup>
-            </FormGroup>
-          </Form>
-        </Col>
-      </Row>
+
       <div className="table-responsive">
-        {vehicleModelList && vehicleModelList.length > 0 ? (
+        {loading ? (
+          <CircularProgress />
+        ) : vehicleModelList && vehicleModelList.length > 0 ? (
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={sort('id')}>
+                <th style={{ display: 'none' }} className="hand" onClick={sort('id')}>
                   <Translate contentKey="microcreditclientApp.vehicleModel.id">Id</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
@@ -186,53 +133,19 @@ export const VehicleModel = () => {
                   <Translate contentKey="microcreditclientApp.vehicleModel.description">Description</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('description')} />
                 </th>
-                <th className="hand" onClick={sort('insertTs')}>
-                  <Translate contentKey="microcreditclientApp.vehicleModel.insertTs">Insert Ts</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('insertTs')} />
-                </th>
-                <th className="hand" onClick={sort('modifiedTs')}>
-                  <Translate contentKey="microcreditclientApp.vehicleModel.modifiedTs">Modified Ts</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('modifiedTs')} />
-                </th>
-                <th>
-                  <Translate contentKey="microcreditclientApp.vehicleModel.createdBy">Created By</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="microcreditclientApp.vehicleModel.modifiedBy">Modified By</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="microcreditclientApp.vehicleModel.vehicleBrand">Vehicle Brand</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
             <tbody>
               {vehicleModelList.map((vehicleModel, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
+                  <td style={{ display: 'none' }}>
                     <Button tag={Link} to={`/vehicle-model/${vehicleModel.id}`} color="link" size="sm">
                       {vehicleModel.id}
                     </Button>
                   </td>
                   <td>{vehicleModel.model}</td>
                   <td>{vehicleModel.description}</td>
-                  <td>
-                    {vehicleModel.insertTs ? <TextFormat type="date" value={vehicleModel.insertTs} format={APP_DATE_FORMAT} /> : null}
-                  </td>
-                  <td>
-                    {vehicleModel.modifiedTs ? <TextFormat type="date" value={vehicleModel.modifiedTs} format={APP_DATE_FORMAT} /> : null}
-                  </td>
-                  <td>{vehicleModel.createdBy ? vehicleModel.createdBy.id : ''}</td>
-                  <td>{vehicleModel.modifiedBy ? vehicleModel.modifiedBy.id : ''}</td>
-                  <td>
-                    {vehicleModel.vehicleBrand ? (
-                      <Link to={`/vehicle-brand/${vehicleModel.vehicleBrand.id}`}>{vehicleModel.vehicleBrand.id}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/vehicle-model/${vehicleModel.id}`} color="info" size="sm" data-cy="entityDetailsButton">
@@ -280,24 +193,13 @@ export const VehicleModel = () => {
           )
         )}
       </div>
-      {totalItems ? (
-        <div className={vehicleModelList && vehicleModelList.length > 0 ? '' : 'd-none'}>
-          <div className="justify-content-center d-flex">
-            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled />
-          </div>
-          <div className="justify-content-center d-flex">
-            <JhiPagination
-              activePage={paginationState.activePage}
-              onSelect={handlePagination}
-              maxButtons={5}
-              itemsPerPage={paginationState.itemsPerPage}
-              totalItems={totalItems}
-            />
-          </div>
-        </div>
-      ) : (
-        ''
-      )}
+      <PaginationComponent
+        totalItems={totalItems}
+        itemsPerPage={paginationState.itemsPerPage}
+        activePage={paginationState.activePage}
+        handlePagination={handlePagination}
+        entityList={vehicleModelList}
+      />
     </div>
   );
 };

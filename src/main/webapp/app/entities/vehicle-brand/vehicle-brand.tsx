@@ -1,15 +1,16 @@
+import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
 import React, { useEffect, useState } from 'react';
+import { JhiItemCount, JhiPagination, Translate, getPaginationState, translate } from 'react-jhipster';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Col, Form, FormGroup, Input, InputGroup, Row, Table } from 'reactstrap';
-import { JhiItemCount, JhiPagination, TextFormat, Translate, getPaginationState, translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import { APP_DATE_FORMAT } from 'app/config/constants';
-import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
-import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import FormHeader from 'app/shared/Components/FormHeader';
 import { getEntities, searchEntities } from './vehicle-brand.reducer';
+import PaginationComponent from 'app/shared/Components/PaginationComponent';
 
 export const VehicleBrand = () => {
   const dispatch = useAppDispatch();
@@ -133,16 +134,15 @@ export const VehicleBrand = () => {
   return (
     <div>
       <h2 id="vehicle-brand-heading" data-cy="VehicleBrandHeading">
-        <Translate contentKey="microcreditclientApp.vehicleBrand.home.title">Vehicle Brands</Translate>
-        <div className="d-flex justify-content-end">
+        <FormHeader title="Vehicle Brands" />
+        <div className="d-flex justify-content-start">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-            <Translate contentKey="microcreditclientApp.vehicleBrand.home.refreshListLabel">Refresh List</Translate>
           </Button>
           <Link to="/vehicle-brand/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
             &nbsp;
-            <Translate contentKey="microcreditclientApp.vehicleBrand.home.createLabel">Create new Vehicle Brand</Translate>
+            <Translate contentKey="microcreditclientApp.vehicleBrand.home.createLabel">New</Translate>
           </Link>
         </div>
       </h2>
@@ -174,7 +174,7 @@ export const VehicleBrand = () => {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={sort('id')}>
+                <th style={{ display: 'none' }} className="hand" onClick={sort('id')}>
                   <Translate contentKey="microcreditclientApp.vehicleBrand.id">Id</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
@@ -186,42 +186,19 @@ export const VehicleBrand = () => {
                   <Translate contentKey="microcreditclientApp.vehicleBrand.description">Description</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('description')} />
                 </th>
-                <th className="hand" onClick={sort('insertTs')}>
-                  <Translate contentKey="microcreditclientApp.vehicleBrand.insertTs">Insert Ts</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('insertTs')} />
-                </th>
-                <th className="hand" onClick={sort('modifiedTs')}>
-                  <Translate contentKey="microcreditclientApp.vehicleBrand.modifiedTs">Modified Ts</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('modifiedTs')} />
-                </th>
-                <th>
-                  <Translate contentKey="microcreditclientApp.vehicleBrand.createdBy">Created By</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="microcreditclientApp.vehicleBrand.modifiedBy">Modified By</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
             <tbody>
               {vehicleBrandList.map((vehicleBrand, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
+                  <td style={{ display: 'none' }}>
                     <Button tag={Link} to={`/vehicle-brand/${vehicleBrand.id}`} color="link" size="sm">
                       {vehicleBrand.id}
                     </Button>
                   </td>
                   <td>{vehicleBrand.brand}</td>
                   <td>{vehicleBrand.description}</td>
-                  <td>
-                    {vehicleBrand.insertTs ? <TextFormat type="date" value={vehicleBrand.insertTs} format={APP_DATE_FORMAT} /> : null}
-                  </td>
-                  <td>
-                    {vehicleBrand.modifiedTs ? <TextFormat type="date" value={vehicleBrand.modifiedTs} format={APP_DATE_FORMAT} /> : null}
-                  </td>
-                  <td>{vehicleBrand.createdBy ? vehicleBrand.createdBy.id : ''}</td>
-                  <td>{vehicleBrand.modifiedBy ? vehicleBrand.modifiedBy.id : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/vehicle-brand/${vehicleBrand.id}`} color="info" size="sm" data-cy="entityDetailsButton">
@@ -269,24 +246,13 @@ export const VehicleBrand = () => {
           )
         )}
       </div>
-      {totalItems ? (
-        <div className={vehicleBrandList && vehicleBrandList.length > 0 ? '' : 'd-none'}>
-          <div className="justify-content-center d-flex">
-            <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled />
-          </div>
-          <div className="justify-content-center d-flex">
-            <JhiPagination
-              activePage={paginationState.activePage}
-              onSelect={handlePagination}
-              maxButtons={5}
-              itemsPerPage={paginationState.itemsPerPage}
-              totalItems={totalItems}
-            />
-          </div>
-        </div>
-      ) : (
-        ''
-      )}
+      <PaginationComponent
+        totalItems={totalItems}
+        itemsPerPage={paginationState.itemsPerPage}
+        activePage={paginationState.activePage}
+        handlePagination={handlePagination}
+        entityList={vehicleBrandList}
+      />
     </div>
   );
 };

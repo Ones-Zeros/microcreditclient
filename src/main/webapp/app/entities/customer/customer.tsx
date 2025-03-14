@@ -1,13 +1,12 @@
+import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
 import React, { useEffect, useState } from 'react';
+import { JhiItemCount, JhiPagination, Translate, byteSize, getPaginationState, openFile, translate } from 'react-jhipster';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Col, Form, FormGroup, Input, InputGroup, Row, Table } from 'reactstrap';
-import { JhiItemCount, JhiPagination, TextFormat, Translate, byteSize, getPaginationState, openFile, translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import { APP_DATE_FORMAT } from 'app/config/constants';
-import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
-import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { getEntities, searchEntities } from './customer.reducer';
 
@@ -178,30 +177,20 @@ export const Customer = () => {
                   <Translate contentKey="microcreditclientApp.customer.id">Id</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
-                <th className="hand" onClick={sort('custId')}>
-                  <Translate contentKey="microcreditclientApp.customer.custId">Cust Id</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('custId')} />
-                </th>
-                <th className="hand" onClick={sort('nic')}>
-                  <Translate contentKey="microcreditclientApp.customer.nic">Nic</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('nic')} />
-                </th>
                 <th className="hand" onClick={sort('custName')}>
-                  <Translate contentKey="microcreditclientApp.customer.custName">Cust Name</Translate>{' '}
+                  <Translate contentKey="microcreditclientApp.customer.custName">Name</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('custName')} />
                 </th>
+                <th className="hand" onClick={sort('nic')}>
+                  <Translate contentKey="microcreditclientApp.customer.nic">NIC</Translate>{' '}
+                  <FontAwesomeIcon icon={getSortIconByFieldName('nic')} />
+                </th>
+
                 <th className="hand" onClick={sort('address1')}>
-                  <Translate contentKey="microcreditclientApp.customer.address1">Address 1</Translate>{' '}
+                  <Translate contentKey="microcreditclientApp.customer.address1">Address</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('address1')} />
                 </th>
-                <th className="hand" onClick={sort('address2')}>
-                  <Translate contentKey="microcreditclientApp.customer.address2">Address 2</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('address2')} />
-                </th>
-                <th className="hand" onClick={sort('city')}>
-                  <Translate contentKey="microcreditclientApp.customer.city">City</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('city')} />
-                </th>
+
                 <th className="hand" onClick={sort('phone1')}>
                   <Translate contentKey="microcreditclientApp.customer.phone1">Phone 1</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('phone1')} />
@@ -226,20 +215,7 @@ export const Customer = () => {
                   <Translate contentKey="microcreditclientApp.customer.status">Status</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('status')} />
                 </th>
-                <th className="hand" onClick={sort('insertTs')}>
-                  <Translate contentKey="microcreditclientApp.customer.insertTs">Insert Ts</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('insertTs')} />
-                </th>
-                <th className="hand" onClick={sort('modifiedTs')}>
-                  <Translate contentKey="microcreditclientApp.customer.modifiedTs">Modified Ts</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('modifiedTs')} />
-                </th>
-                <th>
-                  <Translate contentKey="microcreditclientApp.customer.createdBy">Created By</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="microcreditclientApp.customer.modifiedBy">Modified By</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
+
                 <th />
               </tr>
             </thead>
@@ -251,12 +227,9 @@ export const Customer = () => {
                       {customer.id}
                     </Button>
                   </td>
-                  <td>{customer.custId}</td>
-                  <td>{customer.nic}</td>
                   <td>{customer.custName}</td>
+                  <td>{customer.nic}</td>
                   <td>{customer.address1}</td>
-                  <td>{customer.address2}</td>
-                  <td>{customer.city}</td>
                   <td>{customer.phone1}</td>
                   <td>{customer.phone2}</td>
                   <td>{customer.email}</td>
@@ -279,10 +252,6 @@ export const Customer = () => {
                   <td>
                     <Translate contentKey={`microcreditclientApp.CustomerStatus.${customer.status}`} />
                   </td>
-                  <td>{customer.insertTs ? <TextFormat type="date" value={customer.insertTs} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{customer.modifiedTs ? <TextFormat type="date" value={customer.modifiedTs} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{customer.createdBy ? customer.createdBy.id : ''}</td>
-                  <td>{customer.modifiedBy ? customer.modifiedBy.id : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/customer/${customer.id}`} color="info" size="sm" data-cy="entityDetailsButton">

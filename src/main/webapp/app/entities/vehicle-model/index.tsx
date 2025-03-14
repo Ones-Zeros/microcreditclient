@@ -7,11 +7,12 @@ import VehicleModel from './vehicle-model';
 import VehicleModelDetail from './vehicle-model-detail';
 import VehicleModelUpdate from './vehicle-model-update';
 import VehicleModelDeleteDialog from './vehicle-model-delete-dialog';
+import VehicleModelDialog from './vehicle-model-dialog';
 
 const VehicleModelRoutes = () => (
   <ErrorBoundaryRoutes>
     <Route index element={<VehicleModel />} />
-    <Route path="new" element={<VehicleModelUpdate />} />
+    <Route path="new" element={<VehicleModelDialog />} />
     <Route path=":id">
       <Route index element={<VehicleModelDetail />} />
       <Route path="edit" element={<VehicleModelUpdate />} />

@@ -5,12 +5,13 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Col, Row } from 'reactstrap';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
+import { convertDateTimeToServer } from 'app/shared/util/date-utils';
 
+import { Box, Typography } from '@mui/material';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { CustomerStatus } from 'app/shared/model/enumerations/customer-status.model';
 import { createEntity, getEntity, reset, updateEntity } from './customer.reducer';
-import { Box, Typography } from '@mui/material';
+import CustomerTabSection from './customer-tab-section';
 import CancelButton from 'app/shared/Components/CancelButton';
 import SaveButton from 'app/shared/Components/SaveButton';
 
@@ -62,9 +63,9 @@ export const CustomerUpdate = () => {
   }, [updateSuccess]);
 
   const saveEntity = values => {
-    if (values.id !== undefined && typeof values.id !== 'number') {
-      values.id = Number(values.id);
-    }
+    // if (values.id !== undefined && typeof values.id !== 'number') {
+    //   values.id = Number(values.id);
+    // }
     if (values.creditLimit !== undefined && typeof values.creditLimit !== 'number') {
       values.creditLimit = Number(values.creditLimit);
     }
@@ -86,19 +87,10 @@ export const CustomerUpdate = () => {
   };
 
   const defaultValues = () =>
-    isNew
-      ? {
-          insertTs: displayDefaultDateTime(),
-          modifiedTs: displayDefaultDateTime(),
-        }
-      : {
-          status: 'ACTIVE',
-          ...customerEntity,
-          insertTs: convertDateTimeFromServer(customerEntity.insertTs),
-          modifiedTs: convertDateTimeFromServer(customerEntity.modifiedTs),
-          createdBy: customerEntity?.createdBy?.id,
-          modifiedBy: customerEntity?.modifiedBy?.id,
-        };
+    !isNew && {
+      status: 'ACTIVE',
+      ...customerEntity,
+    };
 
   return (
     <Box m="20px">
@@ -284,6 +276,7 @@ export const CustomerUpdate = () => {
               )}
             </Col>
           </Row>
+          <CustomerTabSection mode={mode} />
         </Box>
       </div>
     </Box>

@@ -32,12 +32,31 @@ const Sidebar = (props: IHeaderProps) => {
             Home
           </NavLink>
         </NavItem>
+        <NavLink tag={Link} to="/customer">
+          Customer
+        </NavLink>
+        <NavLink tag={Link} to="/customer-loan">
+          Loans
+        </NavLink>
+        <NavLink tag={Link} to="/guarantor">
+          Guarantor
+        </NavLink>
+        <NavItem>
+          <NavLink tag={Link} to="/reports">
+            Reports
+          </NavLink>
+        </NavItem>
         <NavItem>
           <NavLink href="#" onClick={toggleLoans}>
-            Bank Info
+            Basic Data
           </NavLink>
           <Collapse isOpen={isLoansOpen}>
             <Nav className="ml-3" vertical>
+              <NavItem>
+                <NavLink tag={Link} to="/vehicle-brand">
+                  Vehicle Brand
+                </NavLink>
+              </NavItem>
               <NavItem>
                 <NavLink tag={Link} to="/bank">
                   Bank
@@ -50,39 +69,6 @@ const Sidebar = (props: IHeaderProps) => {
               </NavItem>
             </Nav>
           </Collapse>
-        </NavItem>
-        <NavLink tag={Link} to="/customer">
-          Customer
-        </NavLink>
-        <NavLink tag={Link} to="/customer-loan">
-          Loans
-        </NavLink>
-        <NavLink tag={Link} to="/guarantor">
-          Guarantor
-        </NavLink>
-        <NavItem>
-          <NavLink href="#" onClick={toggleCustomers}>
-            Vehicle
-          </NavLink>
-          <Collapse isOpen={isCustomersOpen}>
-            <Nav className="ml-3" vertical>
-              <NavItem>
-                <NavLink tag={Link} to="/vehicle-brand">
-                  Brand
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/vehicle-model">
-                  Model
-                </NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </NavItem>
-        <NavItem>
-          <NavLink tag={Link} to="/reports">
-            Reports
-          </NavLink>
         </NavItem>
         {props.isAdmin && (
           <NavItem>
