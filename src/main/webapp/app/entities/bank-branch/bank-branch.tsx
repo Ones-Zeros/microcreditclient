@@ -9,7 +9,7 @@ import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.cons
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { getEntities, searchEntities } from './bank-branch.reducer';
+import { getEntitiesByBank, searchEntities } from './bank-branch.reducer';
 
 export const BankBranch = () => {
   const dispatch = useAppDispatch();
@@ -25,26 +25,18 @@ export const BankBranch = () => {
   const bankBranchList = useAppSelector(state => state.bankBranch.entities);
   const loading = useAppSelector(state => state.bankBranch.loading);
   const totalItems = useAppSelector(state => state.bankBranch.totalItems);
-
+  const bankId = useAppSelector(state => state.bank.entity.id);
   const getAllEntities = () => {
-    if (search) {
-      dispatch(
-        searchEntities({
-          query: search,
-          page: paginationState.activePage - 1,
-          size: paginationState.itemsPerPage,
-          sort: `${paginationState.sort},${paginationState.order}`,
-        }),
-      );
-    } else {
-      dispatch(
-        getEntities({
-          page: paginationState.activePage - 1,
-          size: paginationState.itemsPerPage,
-          sort: `${paginationState.sort},${paginationState.order}`,
-        }),
-      );
-    }
+    // eslint-disable-next-line no-console
+    console.log('Fetching entities for bankId:', bankId);
+    dispatch(
+      getEntitiesByBank({
+        id: bankId,
+        page: paginationState.activePage - 1,
+        size: paginationState.itemsPerPage,
+        sort: `${paginationState.sort},${paginationState.order}`,
+      }),
+    );
   };
 
   const startSearching = e => {
@@ -71,7 +63,14 @@ export const BankBranch = () => {
       ...paginationState,
       activePage: 1,
     });
-    dispatch(getEntities({}));
+    dispatch(
+      getEntitiesByBank({
+        id: 0,
+        page: 0,
+        size: 0,
+        sort: '',
+      }),
+    );
   };
 
   const handleSearch = event => setSearch(event.target.value);
@@ -133,7 +132,7 @@ export const BankBranch = () => {
   return (
     <div>
       <h2 id="bank-branch-heading" data-cy="BankBranchHeading">
-        <Translate contentKey="microcreditclientApp.bankBranch.home.title">Bank Branches</Translate>
+        {/* <Translate contentKey="microcreditclientApp.bankBranch.home.title">Bank Branches</Translate> */}
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} />{' '}

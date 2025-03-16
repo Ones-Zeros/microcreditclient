@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Col, Row } from 'reactstrap';
 import { Translate, ValidatedField, ValidatedForm, translate } from 'react-jhipster';
@@ -11,6 +11,8 @@ import { getUsers } from 'app/modules/administration/user-management/user-manage
 import { getEntities as getBanks } from 'app/entities/bank/bank.reducer';
 import { createEntity, getEntity, reset, updateEntity } from './bank-branch.reducer';
 import { Box, Typography } from '@mui/material';
+import CancelButton from 'app/shared/Components/CancelButton';
+import SaveButton from 'app/shared/Components/SaveButton';
 
 export const BankBranchUpdate = () => {
   const dispatch = useAppDispatch();
@@ -26,9 +28,11 @@ export const BankBranchUpdate = () => {
   const loading = useAppSelector(state => state.bankBranch.loading);
   const updating = useAppSelector(state => state.bankBranch.updating);
   const updateSuccess = useAppSelector(state => state.bankBranch.updateSuccess);
+  const [mode, setMode] = useState('');
+  const bankId = useAppSelector(state => state.bank.entity.id);
 
   const handleClose = () => {
-    navigate(`/bank-branch${location.search}`);
+    navigate(`/bank/${bankId}/edit`);
   };
 
   useEffect(() => {
@@ -41,7 +45,15 @@ export const BankBranchUpdate = () => {
     dispatch(getUsers({}));
     dispatch(getBanks({}));
   }, []);
-
+  useEffect(() => {
+    if (location.pathname.includes('/edit')) {
+      setMode('edit');
+    } else if (location.pathname.includes('/new')) {
+      setMode('new');
+    } else {
+      setMode('view');
+    }
+  }, [location.pathname]);
   useEffect(() => {
     if (updateSuccess) {
       handleClose();
@@ -58,9 +70,9 @@ export const BankBranchUpdate = () => {
     const entity = {
       ...bankBranchEntity,
       ...values,
+      bank: { id: bankId },
       createdBy: users.find(it => it.id.toString() === values.createdBy?.toString()),
       modifiedBy: users.find(it => it.id.toString() === values.modifiedBy?.toString()),
-      bank: banks.find(it => it.id.toString() === values.bank?.toString()),
     };
 
     if (isNew) {
@@ -75,6 +87,7 @@ export const BankBranchUpdate = () => {
       ? {
           insertTs: displayDefaultDateTime(),
           modifiedTs: displayDefaultDateTime(),
+          bank: bankId,
         }
       : {
           ...bankBranchEntity,
@@ -82,7 +95,7 @@ export const BankBranchUpdate = () => {
           modifiedTs: convertDateTimeFromServer(bankBranchEntity.modifiedTs),
           createdBy: bankBranchEntity?.createdBy?.id,
           modifiedBy: bankBranchEntity?.modifiedBy?.id,
-          bank: bankBranchEntity?.bank?.id,
+          bank: bankBranchEntity?.bank?.id || bankId,
         };
 
   return (
@@ -104,8 +117,8 @@ export const BankBranchUpdate = () => {
             marginLeft: '20px', // Adds space between this box and the left edge of the screen
           }}
         >
-          <Row className="justify-content-center mt-3">
-            <Col md="8">
+          <Row className="justify-content-start mt-3">
+            <Col md="12">
               {loading ? (
                 <p>Loading...</p>
               ) : (
@@ -113,7 +126,7 @@ export const BankBranchUpdate = () => {
                   {!isNew ? (
                     <ValidatedField
                       row
-                      className="col-md-4"
+                      className="col-md-3"
                       name="id"
                       required
                       readOnly
@@ -124,7 +137,7 @@ export const BankBranchUpdate = () => {
                   ) : null}
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.bankBranch.branchName')}
                     id="bank-branch-branchName"
                     name="branchName"
@@ -136,7 +149,7 @@ export const BankBranchUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.bankBranch.branchId')}
                     id="bank-branch-branchId"
                     name="branchId"
@@ -145,7 +158,7 @@ export const BankBranchUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.bankBranch.branchLocation')}
                     id="bank-branch-branchLocation"
                     name="branchLocation"
@@ -154,7 +167,7 @@ export const BankBranchUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.bankBranch.insertTs')}
                     id="bank-branch-insertTs"
                     name="insertTs"
@@ -164,7 +177,7 @@ export const BankBranchUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     label={translate('microcreditclientApp.bankBranch.modifiedTs')}
                     id="bank-branch-modifiedTs"
                     name="modifiedTs"
@@ -174,7 +187,7 @@ export const BankBranchUpdate = () => {
                   />
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     id="bank-branch-createdBy"
                     name="createdBy"
                     data-cy="createdBy"
@@ -192,7 +205,7 @@ export const BankBranchUpdate = () => {
                   </ValidatedField>
                   <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     id="bank-branch-modifiedBy"
                     name="modifiedBy"
                     data-cy="modifiedBy"
@@ -208,9 +221,9 @@ export const BankBranchUpdate = () => {
                         ))
                       : null}
                   </ValidatedField>
-                  <ValidatedField
+                  {/* <ValidatedField
                     row
-                    className="col-md-4"
+                    className="col-md-3"
                     id="bank-branch-bank"
                     name="bank"
                     data-cy="bank"
@@ -225,40 +238,12 @@ export const BankBranchUpdate = () => {
                           </option>
                         ))
                       : null}
-                  </ValidatedField>
-                  <Row className="justify-content-end mt-3 d-flex">
-                    <Col md="auto">
-                      {' '}
-                      <Button
-                        tag={Link}
-                        id="cancel-save"
-                        data-cy="entityCreateCancelButton"
-                        to="/bank-branch"
-                        replace
-                        color="info"
-                        className="btn-sm mr-2"
-                      >
-                        <FontAwesomeIcon icon="arrow-left" />
-                        &nbsp;
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.back">Back</Translate>
-                        </span>
-                      </Button>
-                    </Col>
-                    <Col md="auto">
-                      {' '}
-                      <Button
-                        color="primary"
-                        id="save-entity"
-                        data-cy="entityCreateSaveButton"
-                        type="submit"
-                        disabled={updating}
-                        className="btn-sm"
-                      >
-                        <FontAwesomeIcon icon="save" />
-                        &nbsp;
-                        <Translate contentKey="entity.action.save">Save</Translate>
-                      </Button>
+                  </ValidatedField> */}
+                  <Row className="justify-content-end" style={{ marginTop: '30px' }}>
+                    <Col md={12} className="d-flex justify-content-end">
+                      {(mode === 'new' || mode === 'view' || mode === 'edit') && <CancelButton to={`/bank/${bankId}/edit`} />}
+                      &nbsp;
+                      {(mode === 'new' || mode === 'edit') && <SaveButton updating={updating} />}
                     </Col>
                   </Row>
                 </ValidatedForm>
