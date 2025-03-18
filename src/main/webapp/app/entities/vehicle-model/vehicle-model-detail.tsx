@@ -1,8 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react';
+import { TextFormat, Translate } from 'react-jhipster';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Col, Row } from 'reactstrap';
-import { TextFormat, Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
@@ -11,13 +11,14 @@ import { getEntity } from './vehicle-model.reducer';
 
 export const VehicleModelDetail = () => {
   const dispatch = useAppDispatch();
-
+  const updateSuccess = useAppSelector(state => state.vehicleModel.updateSuccess);
   const { id } = useParams<'id'>();
-
   useEffect(() => {
-    dispatch(getEntity(id));
-  }, []);
-
+    if (id) {
+      dispatch(getEntity(id));
+    }
+  }, [id, dispatch, updateSuccess]);
+  const brandId = useAppSelector(state => state.vehicleBrand.entity.id);
   const vehicleModelEntity = useAppSelector(state => state.vehicleModel.entity);
   return (
     <Row>
@@ -75,7 +76,7 @@ export const VehicleModelDetail = () => {
           </dt>
           <dd>{vehicleModelEntity.vehicleBrand ? vehicleModelEntity.vehicleBrand.id : ''}</dd>
         </dl>
-        <Button tag={Link} to="/vehicle-model" replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} to={`/vehicle-brand/${brandId}/edit`} replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>

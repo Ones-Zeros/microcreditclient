@@ -38,9 +38,6 @@ const Sidebar = (props: IHeaderProps) => {
         <NavLink tag={Link} to="/customer-loan">
           Loans
         </NavLink>
-        <NavLink tag={Link} to="/guarantor">
-          Guarantor
-        </NavLink>
         <NavItem>
           <NavLink tag={Link} to="/reports">
             Reports
@@ -60,6 +57,9 @@ const Sidebar = (props: IHeaderProps) => {
               <NavItem>
                 <NavLink tag={Link} to="/bank">
                   Bank
+                </NavLink>
+                <NavLink tag={Link} to="/guarantor">
+                  Guarantor
                 </NavLink>
               </NavItem>
               <NavItem>

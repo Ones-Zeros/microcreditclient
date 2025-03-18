@@ -174,10 +174,6 @@ export const Bank = () => {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="microcreditclientApp.bank.id">ID</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
-                </th>
                 <th className="hand" onClick={sort('bankName')}>
                   <Translate contentKey="microcreditclientApp.bank.bankName">Bank Name</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('bankName')} />
@@ -202,11 +198,6 @@ export const Bank = () => {
             <tbody>
               {bankList.map((bank, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
-                    <Button tag={Link} to={`/bank/${bank.id}`} color="link" size="sm">
-                      {bank.id}
-                    </Button>
-                  </td>
                   <td>{bank.bankName}</td>
                   <td>{bank.insertTs ? <TextFormat type="date" value={bank.insertTs} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{bank.modifiedTs ? <TextFormat type="date" value={bank.modifiedTs} format={APP_DATE_FORMAT} /> : null}</td>

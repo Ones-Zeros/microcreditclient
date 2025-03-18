@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
+import { Translate } from 'react-jhipster';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
-import { Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { deleteEntity, getEntity } from './vehicle-model.reducer';
@@ -19,13 +20,14 @@ export const VehicleModelDeleteDialog = () => {
   useEffect(() => {
     dispatch(getEntity(id));
     setLoadModal(true);
-  }, []);
+  }, [dispatch, id]);
 
   const vehicleModelEntity = useAppSelector(state => state.vehicleModel.entity);
   const updateSuccess = useAppSelector(state => state.vehicleModel.updateSuccess);
+  const brandId = useAppSelector(state => state.vehicleModel.entity?.vehicleBrand?.id);
 
   const handleClose = () => {
-    navigate(`/vehicle-model${pageLocation.search}`);
+    navigate(`/vehicle-brand/${brandId}/edit${pageLocation.search}`);
   };
 
   useEffect(() => {
@@ -33,10 +35,11 @@ export const VehicleModelDeleteDialog = () => {
       handleClose();
       setLoadModal(false);
     }
-  }, [updateSuccess]);
+  }, [updateSuccess, loadModal]);
 
-  const confirmDelete = () => {
-    dispatch(deleteEntity(vehicleModelEntity.id));
+  const confirmDelete = async () => {
+    await dispatch(deleteEntity(vehicleModelEntity.id)); // Ensure deletion completes before navigating
+    handleClose();
   };
 
   return (

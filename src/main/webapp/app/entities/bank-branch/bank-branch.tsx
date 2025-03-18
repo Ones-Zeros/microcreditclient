@@ -82,10 +82,9 @@ export const BankBranch = () => {
       navigate(`${pageLocation.pathname}${endURL}`);
     }
   };
-
   useEffect(() => {
     sortEntities();
-  }, [paginationState.activePage, paginationState.order, paginationState.sort, search]);
+  }, [paginationState.activePage, paginationState.order, paginationState.sort]);
 
   useEffect(() => {
     const params = new URLSearchParams(pageLocation.search);
@@ -173,10 +172,6 @@ export const BankBranch = () => {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="microcreditclientApp.bankBranch.id">ID</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
-                </th>
                 <th className="hand" onClick={sort('branchName')}>
                   <Translate contentKey="microcreditclientApp.bankBranch.branchName">Branch Name</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('branchName')} />
@@ -212,11 +207,6 @@ export const BankBranch = () => {
             <tbody>
               {bankBranchList.map((bankBranch, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
-                    <Button tag={Link} to={`/bank-branch/${bankBranch.id}`} color="link" size="sm">
-                      {bankBranch.id}
-                    </Button>
-                  </td>
                   <td>{bankBranch.branchName}</td>
                   <td>{bankBranch.branchId}</td>
                   <td>{bankBranch.branchLocation}</td>

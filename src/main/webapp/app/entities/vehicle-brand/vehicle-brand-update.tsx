@@ -10,7 +10,7 @@ import { convertDateTimeToServer } from 'app/shared/util/date-utils';
 import { Box } from '@mui/material';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import FormHeader from 'app/shared/Components/FormHeader';
-import { createEntity, getEntity, reset, updateEntity } from './vehicle-brand.reducer';
+import { createEntity, getEntity, partialUpdateEntity, reset } from './vehicle-brand.reducer';
 import VehicleTabSection from './vehicle-tab-section';
 
 export const VehicleBrandUpdate = () => {
@@ -26,10 +26,7 @@ export const VehicleBrandUpdate = () => {
   const loading = useAppSelector(state => state.vehicleBrand.loading);
   const updating = useAppSelector(state => state.vehicleBrand.updating);
   const updateSuccess = useAppSelector(state => state.vehicleBrand.updateSuccess);
-
-  const handleClose = () => {
-    navigate(`/vehicle-brand${location.search}`);
-  };
+  const brandId = useAppSelector(state => state.vehicleBrand.entity.id);
 
   useEffect(() => {
     if (isNew) {
@@ -43,7 +40,7 @@ export const VehicleBrandUpdate = () => {
 
   useEffect(() => {
     if (updateSuccess) {
-      handleClose();
+      navigate(`/vehicle-brand/${brandId}/edit`);
     }
   }, [updateSuccess]);
 
@@ -64,7 +61,7 @@ export const VehicleBrandUpdate = () => {
     if (isNew) {
       dispatch(createEntity(entity));
     } else {
-      dispatch(updateEntity(entity));
+      dispatch(partialUpdateEntity(entity));
     }
   };
 
@@ -141,7 +138,8 @@ export const VehicleBrandUpdate = () => {
               </ValidatedForm>
             )}
           </Row>
-          <VehicleTabSection mode="new" />
+          {!isNew ? <VehicleTabSection /> : null}
+          {/* <VehicleTabSection mode="new" /> */}
         </Box>
       </div>
     </Box>
