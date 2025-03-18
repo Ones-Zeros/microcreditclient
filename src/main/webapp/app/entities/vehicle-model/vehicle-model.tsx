@@ -10,12 +10,10 @@ import { Button, Table } from 'reactstrap';
 
 import FormHeader from 'app/shared/Components/FormHeader';
 import PaginationComponent from 'app/shared/Components/PaginationComponent';
-import { getEntities } from './vehicle-model.reducer';
-import { CircularProgress } from '@mui/material';
+import { getEntitiesByBrand } from './vehicle-model.reducer';
 
 export const VehicleModel = () => {
   const dispatch = useAppDispatch();
-
   const pageLocation = useLocation();
   const navigate = useNavigate();
 
@@ -26,34 +24,20 @@ export const VehicleModel = () => {
   const loading = useAppSelector(state => state.vehicleModel.loading);
   const totalItems = useAppSelector(state => state.vehicleModel.totalItems);
   const vehicleModelList = useAppSelector(state => state.vehicleModel.entities);
-  const vehicleBrand = useAppSelector(state => state.vehicleBrand.entity);
+  const brandId = useAppSelector(state => state.vehicleBrand.entity?.id);
 
   const getAllEntities = () => {
-    dispatch(
-      getEntities({
-        id: vehicleBrand.id,
-        page: paginationState.activePage - 1,
-        size: paginationState.itemsPerPage,
-        sort: `${paginationState.sort},${paginationState.order}`,
-      }),
-    );
-  };
-
-  const sortEntities = () => {
-    getAllEntities();
-    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
-    if (pageLocation.search !== endURL) {
-      navigate(`${pageLocation.pathname}${endURL}`);
+    if (brandId) {
+      dispatch(
+        getEntitiesByBrand({
+          id: brandId,
+          page: paginationState.activePage - 1,
+          size: paginationState.itemsPerPage,
+          sort: `${paginationState.sort},${paginationState.order}`,
+        }),
+      );
     }
   };
-
-  useEffect(() => {
-    sortEntities();
-  }, []);
-
-  useEffect(() => {
-    sortEntities();
-  }, [paginationState.activePage, paginationState.order, paginationState.sort]);
 
   useEffect(() => {
     const params = new URLSearchParams(pageLocation.search);
@@ -61,31 +45,37 @@ export const VehicleModel = () => {
     const sort = params.get(SORT);
     if (page && sort) {
       const sortSplit = sort.split(',');
-      setPaginationState({
-        ...paginationState,
+      setPaginationState(prevState => ({
+        ...prevState,
         activePage: +page,
         sort: sortSplit[0],
         order: sortSplit[1],
-      });
+      }));
     }
   }, [pageLocation.search]);
 
+  useEffect(() => {
+    if (brandId) {
+      getAllEntities();
+    }
+  }, [paginationState.activePage, paginationState.order, paginationState.sort, brandId]);
+
   const sort = p => () => {
-    setPaginationState({
-      ...paginationState,
-      order: paginationState.order === ASC ? DESC : ASC,
+    setPaginationState(prevState => ({
+      ...prevState,
+      order: prevState.order === ASC ? DESC : ASC,
       sort: p,
-    });
+    }));
   };
 
   const handlePagination = currentPage =>
-    setPaginationState({
-      ...paginationState,
+    setPaginationState(prevState => ({
+      ...prevState,
       activePage: currentPage,
-    });
+    }));
 
   const handleSyncList = () => {
-    sortEntities();
+    getAllEntities();
   };
 
   const getSortIconByFieldName = (fieldName: string) => {
@@ -115,9 +105,7 @@ export const VehicleModel = () => {
       </h2>
 
       <div className="table-responsive">
-        {loading ? (
-          <CircularProgress />
-        ) : vehicleModelList && vehicleModelList.length > 0 ? (
+        {vehicleModelList && vehicleModelList.length > 0 ? (
           <Table responsive>
             <thead>
               <tr>

@@ -14,7 +14,7 @@ const initialState: EntityState<IVehicleModel> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/vehicle-brands';
+const apiUrl = 'api/vehicle-models';
 const apiSearchUrl = 'api/vehicle-models/_search';
 
 // Actions
@@ -31,7 +31,7 @@ export const searchEntities = createAsyncThunk(
 export const getEntities = createAsyncThunk(
   'vehicleModel/fetch_entity_list',
   async ({ id, page, size, sort }: IIdQueryParams) => {
-    const requestUrl = `${apiUrl}/${id}/models?${sort ? `page=${page}&size=${size}&sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
+    const requestUrl = `${apiUrl}?${sort ? `page=${page}&size=${size}&sort=${sort}&` : ''}cacheBuster=${new Date().getTime()}`;
     return axios.get<IVehicleModel[]>(requestUrl);
   },
   { serializeError: serializeAxiosError },
@@ -76,6 +76,16 @@ export const partialUpdateEntity = createAsyncThunk(
   { serializeError: serializeAxiosError },
 );
 
+export const getEntitiesByBrand = createAsyncThunk(
+  'brand/fetch_entity_list_by_brand',
+  async ({ id, page, size, sort }: { id: number; page: number; size: number; sort: string }) => {
+    const requestUrl = `/api/vehicle-models/by-brand/${id}${
+      sort ? `?page=${page}&size=${size}&sort=${sort}&` : '?'
+    }cacheBuster=${new Date().getTime()}`;
+
+    return axios.get<IVehicleModel[]>(requestUrl);
+  },
+);
 export const deleteEntity = createAsyncThunk(
   'vehicleModel/delete_entity',
   async (id: string | number, thunkAPI) => {
@@ -90,7 +100,7 @@ export const deleteEntity = createAsyncThunk(
 export const createEntityByVehicleBrand = createAsyncThunk(
   'vehicleModel/create_entity_by_vehicle_brand',
   async (entity: IVehicleModel, thunkAPI) => {
-    const result = await axios.post<IVehicleModel>(`${apiUrl}/${entity.vehicleBrand.id}/models`, cleanEntity(entity));
+    const result = await axios.post<IVehicleModel>(`${apiUrl}`, cleanEntity(entity));
     // Dispatch createEntityByTravelRequest with the TR ID from the entity
     thunkAPI.dispatch(
       getEntities({
@@ -112,6 +122,12 @@ export const VehicleModelSlice = createEntitySlice({
   initialState,
   extraReducers(builder) {
     builder
+      .addCase(getEntitiesByBrand.fulfilled, (state, action) => {
+        const { data, headers } = action.payload;
+        state.loading = false;
+        state.entities = data;
+        state.totalItems = parseInt(headers['x-total-count'], 10);
+      })
       .addCase(getEntity.fulfilled, (state, action) => {
         state.loading = false;
         state.entity = action.payload.data;

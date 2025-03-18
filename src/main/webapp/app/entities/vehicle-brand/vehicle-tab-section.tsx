@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import VehicleModel from '../vehicle-model/vehicle-model';
 
-const VehicleTabSection = ({ mode }) => {
+const VehicleTabSection = () => {
   const [activeTab, setActiveTab] = useState('');
 
   useEffect(() => {

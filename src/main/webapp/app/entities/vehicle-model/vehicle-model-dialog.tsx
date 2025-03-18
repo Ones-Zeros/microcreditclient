@@ -6,7 +6,6 @@ import { Button, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 're
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { createEntityByVehicleBrand, getEntity, reset } from './vehicle-model.reducer';
-import VehicleBrand from '../vehicle-brand/vehicle-brand';
 
 export const VehicleModelDialog = () => {
   const dispatch = useAppDispatch();
@@ -56,7 +55,7 @@ export const VehicleModelDialog = () => {
     }
   }, [updateSuccess]);
 
-  const saveEntity = values => {
+  const saveEntity = async values => {
     const entity = {
       ...vehicleModelEntity,
       ...values,
@@ -64,10 +63,9 @@ export const VehicleModelDialog = () => {
     };
 
     if (isNew) {
-      dispatch(createEntityByVehicleBrand(entity));
+      await dispatch(createEntityByVehicleBrand(entity));
+      dispatch(getEntity(brandId)); // Refetch models for the selected brand
       handleClose();
-    } else {
-      // dispatch(updateEntity(entity));
     }
   };
 

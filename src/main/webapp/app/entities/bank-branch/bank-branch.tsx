@@ -82,10 +82,9 @@ export const BankBranch = () => {
       navigate(`${pageLocation.pathname}${endURL}`);
     }
   };
-
   useEffect(() => {
     sortEntities();
-  }, [paginationState.activePage, paginationState.order, paginationState.sort, search]);
+  }, [paginationState.activePage, paginationState.order, paginationState.sort]);
 
   useEffect(() => {
     const params = new URLSearchParams(pageLocation.search);
