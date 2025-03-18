@@ -174,10 +174,6 @@ export const Guarantor = () => {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="microcreditclientApp.guarantor.id">Id</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
-                </th>
                 <th className="hand" onClick={sort('nic')}>
                   <Translate contentKey="microcreditclientApp.guarantor.nic">Nic</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('nic')} />
@@ -224,11 +220,6 @@ export const Guarantor = () => {
             <tbody>
               {guarantorList.map((guarantor, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
-                    <Button tag={Link} to={`/guarantor/${guarantor.id}`} color="link" size="sm">
-                      {guarantor.id}
-                    </Button>
-                  </td>
                   <td>{guarantor.nic}</td>
                   <td>{guarantor.guarantorName}</td>
                   <td>{guarantor.phone1}</td>
