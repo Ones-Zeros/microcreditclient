@@ -25,9 +25,9 @@ export const VehicleModelUpdate = () => {
   const loading = useAppSelector(state => state.vehicleModel.loading);
   const updating = useAppSelector(state => state.vehicleModel.updating);
   const updateSuccess = useAppSelector(state => state.vehicleModel.updateSuccess);
-
+  const brandId = useAppSelector(state => state.vehicleBrand.entity.id);
   const handleClose = () => {
-    navigate(`/vehicle-model${location.search}`);
+    navigate(`/vehicle-brand/${brandId}/edit`);
   };
 
   useEffect(() => {
@@ -57,6 +57,7 @@ export const VehicleModelUpdate = () => {
     const entity = {
       ...vehicleModelEntity,
       ...values,
+      brand: { id: brandId },
       createdBy: users.find(it => it.id.toString() === values.createdBy?.toString()),
       modifiedBy: users.find(it => it.id.toString() === values.modifiedBy?.toString()),
       vehicleBrand: vehicleBrands.find(it => it.id.toString() === values.vehicleBrand?.toString()),
@@ -74,6 +75,7 @@ export const VehicleModelUpdate = () => {
       ? {
           insertTs: displayDefaultDateTime(),
           modifiedTs: displayDefaultDateTime(),
+          vehicleBrand: brandId,
         }
       : {
           ...vehicleModelEntity,
@@ -81,7 +83,7 @@ export const VehicleModelUpdate = () => {
           modifiedTs: convertDateTimeFromServer(vehicleModelEntity.modifiedTs),
           createdBy: vehicleModelEntity?.createdBy?.id,
           modifiedBy: vehicleModelEntity?.modifiedBy?.id,
-          vehicleBrand: vehicleModelEntity?.vehicleBrand?.id,
+          vehicleBrand: vehicleModelEntity?.vehicleBrand?.id || brandId,
         };
 
   return (
@@ -177,23 +179,14 @@ export const VehicleModelUpdate = () => {
                     ))
                   : null}
               </ValidatedField>
-              <ValidatedField
-                id="vehicle-model-vehicleBrand"
-                name="vehicleBrand"
-                data-cy="vehicleBrand"
-                label={translate('microcreditclientApp.vehicleModel.vehicleBrand')}
-                type="select"
+              <Button
+                tag={Link}
+                id="cancel-save"
+                data-cy="entityCreateCancelButton"
+                to={`/vehicle-brand/${brandId}/edit`}
+                replace
+                color="info"
               >
-                <option value="" key="0" />
-                {vehicleBrands
-                  ? vehicleBrands.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/vehicle-model" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
