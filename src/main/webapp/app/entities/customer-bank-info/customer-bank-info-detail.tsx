@@ -1,8 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react';
+import { TextFormat, Translate } from 'react-jhipster';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Col, Row } from 'reactstrap';
-import { TextFormat, Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
@@ -11,7 +11,7 @@ import { getEntity } from './customer-bank-info.reducer';
 
 export const CustomerBankInfoDetail = () => {
   const dispatch = useAppDispatch();
-
+  const customerId = useAppSelector(state => state.customer.entity.id);
   const { id } = useParams<'id'>();
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export const CustomerBankInfoDetail = () => {
           </dt>
           <dd>{customerBankInfoEntity.customer ? customerBankInfoEntity.customer.id : ''}</dd>
         </dl>
-        <Button tag={Link} to="/customer-bank-info" replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} to={`/customer/${customerId}/edit`} replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>

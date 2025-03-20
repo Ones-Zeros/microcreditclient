@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Col, Row } from 'reactstrap';
 import { Translate, ValidatedField, ValidatedForm, translate } from 'react-jhipster';
@@ -10,6 +10,9 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntities as getBankBranches } from 'app/entities/bank-branch/bank-branch.reducer';
 import { getEntities as getCustomers } from 'app/entities/customer/customer.reducer';
 import { createEntity, getEntity, reset, updateEntity } from './customer-bank-info.reducer';
+import CancelButton from 'app/shared/Components/CancelButton';
+import SaveButton from 'app/shared/Components/SaveButton';
+import { Box, Typography } from '@mui/material';
 
 export const CustomerBankInfoUpdate = () => {
   const dispatch = useAppDispatch();
@@ -25,9 +28,10 @@ export const CustomerBankInfoUpdate = () => {
   const loading = useAppSelector(state => state.customerBankInfo.loading);
   const updating = useAppSelector(state => state.customerBankInfo.updating);
   const updateSuccess = useAppSelector(state => state.customerBankInfo.updateSuccess);
-
+  const customerId = useAppSelector(state => state.customer.entity.id);
+  const [mode, setMode] = useState('');
   const handleClose = () => {
-    navigate(`/customer-bank-info${location.search}`);
+    navigate(`/customer/${customerId}/edit`);
   };
 
   useEffect(() => {
@@ -40,6 +44,16 @@ export const CustomerBankInfoUpdate = () => {
     dispatch(getBankBranches({}));
     dispatch(getCustomers({}));
   }, []);
+
+  useEffect(() => {
+    if (location.pathname.includes('/edit')) {
+      setMode('edit');
+    } else if (location.pathname.includes('/new')) {
+      setMode('new');
+    } else {
+      setMode('view');
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     if (updateSuccess) {
@@ -57,8 +71,9 @@ export const CustomerBankInfoUpdate = () => {
     const entity = {
       ...customerBankInfoEntity,
       ...values,
+      customer: { id: customerId },
       bankBranch: bankBranches.find(it => it.id.toString() === values.bankBranch?.toString()),
-      customer: customers.find(it => it.id.toString() === values.customer?.toString()),
+      // customer: customers.find(it => it.id.toString() === values.customer?.toString()),
     };
 
     if (isNew) {
@@ -73,6 +88,7 @@ export const CustomerBankInfoUpdate = () => {
       ? {
           insertTs: displayDefaultDateTime(),
           modifiedTs: displayDefaultDateTime(),
+          customer: { id: customerId },
         }
       : {
           ...customerBankInfoEntity,
@@ -83,75 +99,81 @@ export const CustomerBankInfoUpdate = () => {
         };
 
   return (
-    <div>
-      <Row className="justify-content-center">
-        <Col md="8">
-          <h2 id="microcreditclientApp.customerBankInfo.home.createOrEditLabel" data-cy="CustomerBankInfoCreateUpdateHeading">
-            <Translate contentKey="microcreditclientApp.customerBankInfo.home.createOrEditLabel">
-              Create or edit a CustomerBankInfo
-            </Translate>
-          </h2>
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        <Col md="8">
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew ? (
-                <ValidatedField
-                  name="id"
-                  required
-                  readOnly
-                  id="customer-bank-info-id"
-                  label={translate('global.field.id')}
-                  validate={{ required: true }}
-                />
-              ) : null}
-              <ValidatedField
-                label={translate('microcreditclientApp.customerBankInfo.accountNumber')}
-                id="customer-bank-info-accountNumber"
-                name="accountNumber"
-                data-cy="accountNumber"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
-              />
-              <ValidatedField
-                label={translate('microcreditclientApp.customerBankInfo.insertTs')}
-                id="customer-bank-info-insertTs"
-                name="insertTs"
-                data-cy="insertTs"
-                type="datetime-local"
-                placeholder="YYYY-MM-DD HH:mm"
-              />
-              <ValidatedField
-                label={translate('microcreditclientApp.customerBankInfo.modifiedTs')}
-                id="customer-bank-info-modifiedTs"
-                name="modifiedTs"
-                data-cy="modifiedTs"
-                type="datetime-local"
-                placeholder="YYYY-MM-DD HH:mm"
-              />
-              <ValidatedField
-                id="customer-bank-info-bankBranch"
-                name="bankBranch"
-                data-cy="bankBranch"
-                label={translate('microcreditclientApp.customerBankInfo.bankBranch')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {bankBranches
-                  ? bankBranches.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
+    <Box m="20px">
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Typography variant="h3" fontWeight="bold" sx={{ fontSize: '18px', paddingTop: '0px', paddingLeft: '20px', marginBottom: '10px' }}>
+          {mode === 'new' ? 'Add CustomerBankInfo' : mode === 'edit' ? 'Edit CustomerBankInfo' : 'View CustomerBankInfo'}
+        </Typography>
+      </div>
+      <hr></hr>
+      <div>
+        <Box
+          sx={{
+            backgroundColor: 'white', // White background
+            borderRadius: '10px', // Rounded corners
+            padding: '5px', // Padding to create space between border and content
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Optional: Adds a subtle shadow for depth
+            marginTop: '10px', // Adds space between this box and the previous element
+            marginLeft: '20px', // Adds space between this box and the left edge of the screen
+          }}
+        >
+          <Row className="justify-content-start mt-3">
+            <Col md="12">
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <ValidatedForm className="row" defaultValues={defaultValues()} onSubmit={saveEntity}>
+                  <ValidatedField
+                    row
+                    className="col-md-3"
+                    label={translate('microcreditclientApp.customerBankInfo.accountNumber')}
+                    id="customer-bank-info-accountNumber"
+                    name="accountNumber"
+                    data-cy="accountNumber"
+                    type="text"
+                    validate={{
+                      required: { value: true, message: translate('entity.validation.required') },
+                    }}
+                  />
+                  <ValidatedField
+                    row
+                    className="col-md-3"
+                    label={translate('microcreditclientApp.customerBankInfo.insertTs')}
+                    id="customer-bank-info-insertTs"
+                    name="insertTs"
+                    data-cy="insertTs"
+                    type="datetime-local"
+                    placeholder="YYYY-MM-DD HH:mm"
+                  />
+                  <ValidatedField
+                    row
+                    className="col-md-3"
+                    label={translate('microcreditclientApp.customerBankInfo.modifiedTs')}
+                    id="customer-bank-info-modifiedTs"
+                    name="modifiedTs"
+                    data-cy="modifiedTs"
+                    type="datetime-local"
+                    placeholder="YYYY-MM-DD HH:mm"
+                  />
+                  <ValidatedField
+                    row
+                    className="col-md-3"
+                    id="customer-bank-info-bankBranch"
+                    name="bankBranch"
+                    data-cy="bankBranch"
+                    label={translate('microcreditclientApp.customerBankInfo.bankBranch')}
+                    type="select"
+                  >
+                    <option value="" key="0" />
+                    {bankBranches
+                      ? bankBranches.map(otherEntity => (
+                          <option value={otherEntity.id} key={otherEntity.id}>
+                            {otherEntity.id}
+                          </option>
+                        ))
+                      : null}
+                  </ValidatedField>
+                  {/* <ValidatedField
                 id="customer-bank-info-customer"
                 name="customer"
                 data-cy="customer"
@@ -166,25 +188,21 @@ export const CustomerBankInfoUpdate = () => {
                       </option>
                     ))
                   : null}
-              </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/customer-bank-info" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
-                &nbsp;
-                <span className="d-none d-md-inline">
-                  <Translate contentKey="entity.action.back">Back</Translate>
-                </span>
-              </Button>
-              &nbsp;
-              <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
-                &nbsp;
-                <Translate contentKey="entity.action.save">Save</Translate>
-              </Button>
-            </ValidatedForm>
-          )}
-        </Col>
-      </Row>
-    </div>
+              </ValidatedField> */}
+                  <Row className="justify-content-end" style={{ marginTop: '30px' }}>
+                    <Col md={12} className="d-flex justify-content-end">
+                      {(mode === 'new' || mode === 'view' || mode === 'edit') && <CancelButton to={`/customer/${customerId}/edit`} />}
+                      &nbsp;
+                      {(mode === 'new' || mode === 'edit') && <SaveButton updating={updating} />}
+                    </Col>
+                  </Row>
+                </ValidatedForm>
+              )}
+            </Col>
+          </Row>
+        </Box>
+      </div>
+    </Box>
   );
 };
 

@@ -1,19 +1,18 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { Translate, ValidatedBlobField, ValidatedField, ValidatedForm, isNumber, translate } from 'react-jhipster';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Button, Col, Row } from 'reactstrap';
+import { ValidatedBlobField, ValidatedField, ValidatedForm, isNumber, translate } from 'react-jhipster';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Col, Row } from 'reactstrap';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { convertDateTimeToServer } from 'app/shared/util/date-utils';
 
 import { Box, Typography } from '@mui/material';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { CustomerStatus } from 'app/shared/model/enumerations/customer-status.model';
-import { createEntity, getEntity, reset, updateEntity } from './customer.reducer';
-import CustomerTabSection from './customer-tab-section';
 import CancelButton from 'app/shared/Components/CancelButton';
 import SaveButton from 'app/shared/Components/SaveButton';
+import { CustomerStatus } from 'app/shared/model/enumerations/customer-status.model';
+import CustomerTabSection from './customer-tab-section';
+import { createEntity, getEntity, partialUpdateEntity, reset } from './customer.reducer';
 
 export const CustomerUpdate = () => {
   const dispatch = useAppDispatch();
@@ -31,7 +30,7 @@ export const CustomerUpdate = () => {
   const updating = useAppSelector(state => state.customer.updating);
   const updateSuccess = useAppSelector(state => state.customer.updateSuccess);
   const customerStatusValues = Object.keys(CustomerStatus);
-
+  const customerId = useAppSelector(state => state.customer.entity.id);
   const handleClose = () => {
     navigate(`/customer${location.search}`);
   };
@@ -58,7 +57,7 @@ export const CustomerUpdate = () => {
 
   useEffect(() => {
     if (updateSuccess) {
-      handleClose();
+      navigate(`/customer/${customerId}/edit`);
     }
   }, [updateSuccess]);
 
@@ -82,7 +81,7 @@ export const CustomerUpdate = () => {
     if (isNew) {
       dispatch(createEntity(entity));
     } else {
-      dispatch(updateEntity(entity));
+      dispatch(partialUpdateEntity(entity));
     }
   };
 
@@ -265,7 +264,7 @@ export const CustomerUpdate = () => {
                   </ValidatedField>
                   <Row className="justify-content-end" style={{ marginTop: '30px' }}>
                     <Col md={12} className="d-flex justify-content-end">
-                      {mode === 'new' || mode === 'view' ? <CancelButton to="/customer" /> : null}
+                      {mode === 'new' || mode === 'view' || mode === 'edit' ? <CancelButton to="/customer" /> : null}
                       &nbsp;
                       {!(mode !== 'edit' && mode !== 'new') || mode === 'new' || mode === 'edit' ? (
                         <SaveButton updating={updating} />
@@ -276,7 +275,8 @@ export const CustomerUpdate = () => {
               )}
             </Col>
           </Row>
-          <CustomerTabSection mode={mode} />
+          {/* <CustomerTabSection mode={mode} /> */}
+          {!isNew ? <CustomerTabSection mode={mode} /> : null}
         </Box>
       </div>
     </Box>
