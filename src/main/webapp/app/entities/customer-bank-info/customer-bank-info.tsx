@@ -1,15 +1,15 @@
+import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { APP_DATE_FORMAT } from 'app/config/constants';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
 import React, { useEffect, useState } from 'react';
+import { JhiItemCount, JhiPagination, TextFormat, Translate, getPaginationState, translate } from 'react-jhipster';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Col, Form, FormGroup, Input, InputGroup, Row, Table } from 'reactstrap';
-import { JhiItemCount, JhiPagination, TextFormat, Translate, getPaginationState, translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import { APP_DATE_FORMAT } from 'app/config/constants';
-import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
-import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { getEntities, searchEntities } from './customer-bank-info.reducer';
+import { getEntitiesByCustomer, searchEntities } from './customer-bank-info.reducer';
 
 export const CustomerBankInfo = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ export const CustomerBankInfo = () => {
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getPaginationState(pageLocation, ITEMS_PER_PAGE, 'id'), pageLocation.search),
   );
-
+  const customerId = useAppSelector(state => state.customer.entity.id);
   const customerBankInfoList = useAppSelector(state => state.customerBankInfo.entities);
   const loading = useAppSelector(state => state.customerBankInfo.loading);
   const totalItems = useAppSelector(state => state.customerBankInfo.totalItems);
@@ -38,7 +38,8 @@ export const CustomerBankInfo = () => {
       );
     } else {
       dispatch(
-        getEntities({
+        getEntitiesByCustomer({
+          id: customerId,
           page: paginationState.activePage - 1,
           size: paginationState.itemsPerPage,
           sort: `${paginationState.sort},${paginationState.order}`,
@@ -71,7 +72,14 @@ export const CustomerBankInfo = () => {
       ...paginationState,
       activePage: 1,
     });
-    dispatch(getEntities({}));
+    dispatch(
+      getEntitiesByCustomer({
+        id: 0,
+        page: 0,
+        size: 0,
+        sort: '',
+      }),
+    );
   };
 
   const handleSearch = event => setSearch(event.target.value);
@@ -179,10 +187,6 @@ export const CustomerBankInfo = () => {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="microcreditclientApp.customerBankInfo.id">ID</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
-                </th>
                 <th className="hand" onClick={sort('accountNumber')}>
                   <Translate contentKey="microcreditclientApp.customerBankInfo.accountNumber">Account Number</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('accountNumber')} />
@@ -209,11 +213,6 @@ export const CustomerBankInfo = () => {
             <tbody>
               {customerBankInfoList.map((customerBankInfo, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
-                    <Button tag={Link} to={`/customer-bank-info/${customerBankInfo.id}`} color="link" size="sm">
-                      {customerBankInfo.id}
-                    </Button>
-                  </td>
                   <td>{customerBankInfo.accountNumber}</td>
                   <td>
                     {customerBankInfo.insertTs ? (

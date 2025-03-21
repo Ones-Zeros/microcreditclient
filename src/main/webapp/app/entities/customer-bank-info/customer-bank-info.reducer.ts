@@ -66,6 +66,17 @@ export const updateEntity = createAsyncThunk(
   { serializeError: serializeAxiosError },
 );
 
+export const getEntitiesByCustomer = createAsyncThunk(
+  'customer/fetch_entity_list_by_customer',
+  async ({ id, page, size, sort }: { id: number; page: number; size: number; sort: string }) => {
+    const requestUrl = `api/customer-bank-infos/by-customer/${id}${
+      sort ? `?page=${page}&size=${size}&sort=${sort}&` : '?'
+    }cacheBuster=${new Date().getTime()}`;
+
+    return axios.get<ICustomerBankInfo[]>(requestUrl);
+  },
+);
+
 export const partialUpdateEntity = createAsyncThunk(
   'customerBankInfo/partial_update_entity',
   async (entity: ICustomerBankInfo, thunkAPI) => {
@@ -94,6 +105,12 @@ export const CustomerBankInfoSlice = createEntitySlice({
   initialState,
   extraReducers(builder) {
     builder
+      .addCase(getEntitiesByCustomer.fulfilled, (state, action) => {
+        const { data, headers } = action.payload;
+        state.loading = false;
+        state.entities = data;
+        state.totalItems = parseInt(headers['x-total-count'], 10);
+      })
       .addCase(getEntity.fulfilled, (state, action) => {
         state.loading = false;
         state.entity = action.payload.data;
