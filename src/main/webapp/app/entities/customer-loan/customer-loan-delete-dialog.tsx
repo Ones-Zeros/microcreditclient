@@ -23,9 +23,9 @@ export const CustomerLoanDeleteDialog = () => {
 
   const customerLoanEntity = useAppSelector(state => state.customerLoan.entity);
   const updateSuccess = useAppSelector(state => state.customerLoan.updateSuccess);
-
+  const customerId = useAppSelector(state => state.customer.entity.id);
   const handleClose = () => {
-    navigate(`/customer-loan${pageLocation.search}`);
+    navigate(`/customer/${customerId}/edit`);
   };
 
   useEffect(() => {
