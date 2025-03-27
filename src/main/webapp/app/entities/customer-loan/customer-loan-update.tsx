@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Button, Col, Row } from 'reactstrap';
 import { Translate, ValidatedField, ValidatedForm, isNumber, translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Col, Row } from 'reactstrap';
 
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 
-import { getEntities as getVehicleValuationReports } from 'app/entities/vehicle-valuation-report/vehicle-valuation-report.reducer';
-import { getEntities as getInstallmentPlans } from 'app/entities/installment-plan/installment-plan.reducer';
-import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { getEntities as getCustomers } from 'app/entities/customer/customer.reducer';
-import { getEntities as getLoanTemplates } from 'app/entities/loan-template/loan-template.reducer';
-import { PaymentType } from 'app/shared/model/enumerations/payment-type.model';
-import { LoanStatus } from 'app/shared/model/enumerations/loan-status.model';
-import { createEntity, getEntity, reset, updateEntity } from './customer-loan.reducer';
 import { Box, Typography } from '@mui/material';
+import { getEntities as getCustomers } from 'app/entities/customer/customer.reducer';
+import { getEntities as getInstallmentPlans } from 'app/entities/installment-plan/installment-plan.reducer';
+import { getEntities as getLoanTemplates } from 'app/entities/loan-template/loan-template.reducer';
+import { getEntities as getVehicleValuationReports } from 'app/entities/vehicle-valuation-report/vehicle-valuation-report.reducer';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import CancelButton from 'app/shared/Components/CancelButton';
 import SaveButton from 'app/shared/Components/SaveButton';
+import { LoanStatus } from 'app/shared/model/enumerations/loan-status.model';
+import { PaymentType } from 'app/shared/model/enumerations/payment-type.model';
+import { createEntity, getEntity, reset, updateEntity } from './customer-loan.reducer';
 
 export const CustomerLoanUpdate = () => {
   const dispatch = useAppDispatch();
@@ -39,8 +38,9 @@ export const CustomerLoanUpdate = () => {
   const paymentTypeValues = Object.keys(PaymentType);
   const loanStatusValues = Object.keys(LoanStatus);
   const [mode, setMode] = useState('');
+  const customerId = useAppSelector(state => state.customer.entity.id);
   const handleClose = () => {
-    navigate(`/customer-loan${location.search}`);
+    navigate(`/customer/${customerId}/edit`);
   };
 
   useEffect(() => {
@@ -87,11 +87,11 @@ export const CustomerLoanUpdate = () => {
     const entity = {
       ...customerLoanEntity,
       ...values,
+      customer: { id: customerId },
       valuationReport: vehicleValuationReports.find(it => it.id.toString() === values.valuationReport?.toString()),
       installmentPlan: installmentPlans.find(it => it.id.toString() === values.installmentPlan?.toString()),
       createdBy: users.find(it => it.id.toString() === values.createdBy?.toString()),
       modifiedBy: users.find(it => it.id.toString() === values.modifiedBy?.toString()),
-      customer: customers.find(it => it.id.toString() === values.customer?.toString()),
       loanTemplate: loanTemplates.find(it => it.id.toString() === values.loanTemplate?.toString()),
     };
 
@@ -107,6 +107,7 @@ export const CustomerLoanUpdate = () => {
       ? {
           insertTs: displayDefaultDateTime(),
           modifiedTs: displayDefaultDateTime(),
+          customer: customerId,
         }
       : {
           loanPaymentType: 'DAILY',
@@ -147,18 +148,6 @@ export const CustomerLoanUpdate = () => {
                 <p>Loading...</p>
               ) : (
                 <ValidatedForm className="row" defaultValues={defaultValues()} onSubmit={saveEntity}>
-                  {!isNew ? (
-                    <ValidatedField
-                      row
-                      className="col-md-3"
-                      name="id"
-                      required
-                      readOnly
-                      id="customer-loan-id"
-                      label={translate('global.field.id')}
-                      validate={{ required: true }}
-                    />
-                  ) : null}
                   <ValidatedField
                     row
                     className="col-md-3"
@@ -358,24 +347,7 @@ export const CustomerLoanUpdate = () => {
                         ))
                       : null}
                   </ValidatedField>
-                  <ValidatedField
-                    row
-                    className="col-md-3"
-                    id="customer-loan-customer"
-                    name="customer"
-                    data-cy="customer"
-                    label={translate('microcreditclientApp.customerLoan.customer')}
-                    type="select"
-                  >
-                    <option value="" key="0" />
-                    {customers
-                      ? customers.map(otherEntity => (
-                          <option value={otherEntity.id} key={otherEntity.id}>
-                            {otherEntity.id}
-                          </option>
-                        ))
-                      : null}
-                  </ValidatedField>
+
                   <ValidatedField
                     row
                     className="col-md-3"
@@ -396,7 +368,7 @@ export const CustomerLoanUpdate = () => {
                   </ValidatedField>
                   <Row className="justify-content-end" style={{ marginTop: '30px' }}>
                     <Col md={12} className="d-flex justify-content-end">
-                      {mode === 'new' || mode === 'view' ? <CancelButton to="/customer-loan" /> : null}
+                      {mode === 'new' || mode === 'view' || mode === 'edit' ? <CancelButton to={`/customer/${customerId}/edit`} /> : null}
                       &nbsp;
                       {!(mode !== 'edit' && mode !== 'new') || mode === 'new' || mode === 'edit' ? (
                         <SaveButton updating={updating} />

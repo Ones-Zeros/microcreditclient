@@ -17,7 +17,7 @@ export const CustomerLoanDetail = () => {
   useEffect(() => {
     dispatch(getEntity(id));
   }, []);
-
+  const customerId = useAppSelector(state => state.customer.entity.id);
   const customerLoanEntity = useAppSelector(state => state.customerLoan.entity);
   return (
     <Row>
@@ -145,7 +145,7 @@ export const CustomerLoanDetail = () => {
           </dt>
           <dd>{customerLoanEntity.loanTemplate ? customerLoanEntity.loanTemplate.id : ''}</dd>
         </dl>
-        <Button tag={Link} to="/customer-loan" replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} to={`/customer/${customerId}/edit`} replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>

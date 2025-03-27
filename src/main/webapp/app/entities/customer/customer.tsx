@@ -173,10 +173,6 @@ export const Customer = () => {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="microcreditclientApp.customer.id">Id</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
-                </th>
                 <th className="hand" onClick={sort('custName')}>
                   <Translate contentKey="microcreditclientApp.customer.custName">Name</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('custName')} />
@@ -222,11 +218,6 @@ export const Customer = () => {
             <tbody>
               {customerList.map((customer, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
-                    <Button tag={Link} to={`/customer/${customer.id}`} color="link" size="sm">
-                      {customer.id}
-                    </Button>
-                  </td>
                   <td>{customer.custName}</td>
                   <td>{customer.nic}</td>
                   <td>{customer.address1}</td>

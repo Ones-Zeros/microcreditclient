@@ -1,15 +1,15 @@
+import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
 import React, { useEffect, useState } from 'react';
+import { JhiItemCount, JhiPagination, TextFormat, Translate, getPaginationState, translate } from 'react-jhipster';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Col, Form, FormGroup, Input, InputGroup, Row, Table } from 'reactstrap';
-import { JhiItemCount, JhiPagination, TextFormat, Translate, getPaginationState, translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
-import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
-import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { getEntities, searchEntities } from './customer-loan.reducer';
+import { getEntitiesByCustomer, searchEntities } from './customer-loan.reducer';
 
 export const CustomerLoan = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ export const CustomerLoan = () => {
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getPaginationState(pageLocation, ITEMS_PER_PAGE, 'id'), pageLocation.search),
   );
-
+  const customerId = useAppSelector(state => state.customer.entity.id);
   const customerLoanList = useAppSelector(state => state.customerLoan.entities);
   const loading = useAppSelector(state => state.customerLoan.loading);
   const totalItems = useAppSelector(state => state.customerLoan.totalItems);
@@ -38,7 +38,8 @@ export const CustomerLoan = () => {
       );
     } else {
       dispatch(
-        getEntities({
+        getEntitiesByCustomer({
+          id: customerId,
           page: paginationState.activePage - 1,
           size: paginationState.itemsPerPage,
           sort: `${paginationState.sort},${paginationState.order}`,
@@ -71,7 +72,14 @@ export const CustomerLoan = () => {
       ...paginationState,
       activePage: 1,
     });
-    dispatch(getEntities({}));
+    dispatch(
+      getEntitiesByCustomer({
+        id: 0,
+        page: 0,
+        size: 0,
+        sort: '',
+      }),
+    );
   };
 
   const handleSearch = event => setSearch(event.target.value);
@@ -174,10 +182,6 @@ export const CustomerLoan = () => {
           <Table responsive>
             <thead>
               <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="microcreditclientApp.customerLoan.id">ID</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
-                </th>
                 <th className="hand" onClick={sort('loanId')}>
                   <Translate contentKey="microcreditclientApp.customerLoan.loanId">Loan Id</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('loanId')} />
@@ -237,9 +241,7 @@ export const CustomerLoan = () => {
                   <Translate contentKey="microcreditclientApp.customerLoan.modifiedBy">Modified By</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="microcreditclientApp.customerLoan.customer">Customer</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
+
                 <th>
                   <Translate contentKey="microcreditclientApp.customerLoan.loanTemplate">Loan Template</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
@@ -250,11 +252,6 @@ export const CustomerLoan = () => {
             <tbody>
               {customerLoanList.map((customerLoan, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
-                    <Button tag={Link} to={`/customer-loan/${customerLoan.id}`} color="link" size="sm">
-                      {customerLoan.id}
-                    </Button>
-                  </td>
                   <td>{customerLoan.loanId}</td>
                   <td>{customerLoan.amount}</td>
                   <td>
@@ -306,9 +303,7 @@ export const CustomerLoan = () => {
                   </td>
                   <td>{customerLoan.createdBy ? customerLoan.createdBy.id : ''}</td>
                   <td>{customerLoan.modifiedBy ? customerLoan.modifiedBy.id : ''}</td>
-                  <td>
-                    {customerLoan.customer ? <Link to={`/customer/${customerLoan.customer.id}`}>{customerLoan.customer.id}</Link> : ''}
-                  </td>
+
                   <td>
                     {customerLoan.loanTemplate ? (
                       <Link to={`/loan-template/${customerLoan.loanTemplate.id}`}>{customerLoan.loanTemplate.id}</Link>
