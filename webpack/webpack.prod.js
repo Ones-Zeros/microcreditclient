@@ -5,6 +5,7 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const sass = require('sass');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const utils = require('./utils.js');
 const commonConfig = require('./webpack.common.js');
@@ -107,6 +108,15 @@ module.exports = async () =>
         clientsClaim: true,
         skipWaiting: true,
         exclude: [/swagger-ui/],
+      }),
+      new ForkTsCheckerWebpackPlugin({
+        async: false,
+        typescript: {
+          diagnosticOptions: {
+            semantic: true,
+            syntactic: true,
+          },
+        },
       }),
     ],
   });

@@ -19,7 +19,7 @@
         "title": "Customer"
       },
       "id": "Id",
-      "custId": "Id",
+      "custId": "Cust ID",
       "nic": "NIC",
       "custName": "Name",
       "address1": "Address 1",
