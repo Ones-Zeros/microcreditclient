@@ -5,7 +5,7 @@
   "description": "Description for Microcreditclient",
   "license": "UNLICENSED",
   "scripts": {
-    "build": "npm run webapp:prod --",
+    "build": "npm run build",
     "build-watch": "concurrently 'npm run webapp:build:dev -- --watch'",
     "ci:frontend:test": "npm run webapp:build:$npm_package_config_default_environment && npm run test-ci",
     "clean-www": "rimraf target/classes/static/",
@@ -18,7 +18,7 @@
     "prettier:check": "prettier --check \"{,src/**/,webpack/,.blueprint/**/}*.{md,json,yml,js,cjs,mjs,ts,cts,mts,html,tsx,css,scss}\"",
     "prettier:format": "prettier --write \"{,src/**/,webpack/,.blueprint/**/}*.{md,json,yml,js,cjs,mjs,ts,cts,mts,html,tsx,css,scss}\"",
     "sonar": "sonar-scanner",
-    "start": "npm run webapp:dev --",
+    "start": "node server.js",
     "start-tls": "npm run webapp:dev -- --env tls",
     "pretest": "npm run lint",
     "test": "npm run jest --",
@@ -137,7 +137,7 @@
     "workbox-webpack-plugin": "7.3.0"
   },
   "engines": {
-    "node": ">=22.11.0"
+    "node": ">=14.x"
   },
   "cacheDirectories": [
     "node_modules"
