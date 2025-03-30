@@ -2,12 +2,10 @@ services:
   - type: web
     name: microcreditclient
     env: node
-    buildCommand: npm run webapp:build:prod
+    buildCommand: npm install && npm run build
     startCommand: npm start
     plan: free
     autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: production
-    publish:
-      path: target/classes/static
