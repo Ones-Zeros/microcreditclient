@@ -109,14 +109,5 @@ module.exports = async () =>
         skipWaiting: true,
         exclude: [/swagger-ui/],
       }),
-      new ForkTsCheckerWebpackPlugin({
-        async: false,
-        typescript: {
-          diagnosticOptions: {
-            semantic: true,
-            syntactic: true,
-          },
-        },
-      }),
     ],
   });
