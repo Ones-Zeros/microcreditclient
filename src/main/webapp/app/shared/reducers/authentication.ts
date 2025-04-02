@@ -66,6 +66,13 @@ export const login: (username: string, password: string, rememberMe?: boolean) =
       } else {
         Storage.session.set(AUTH_TOKEN_KEY, jwt);
       }
+    } else if (response?.data?.id_token) {
+      const jwt = response.data.id_token;
+      if (rememberMe) {
+        Storage.local.set(AUTH_TOKEN_KEY, jwt);
+      } else {
+        Storage.session.set(AUTH_TOKEN_KEY, jwt);
+      }
     }
     dispatch(getSession());
   };
